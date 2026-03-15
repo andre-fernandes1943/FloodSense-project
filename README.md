@@ -1,5 +1,5 @@
 
-<p align="left"><img src="FLOODSENSE_Logo2.png" width="100"> </p>
+<p align="center"><img src="FLOODSENSE_Logo2.png" width="100"> </p>
 
 ---
 FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IOT) e uma plataforma web para visualização dos produtos e dados.
