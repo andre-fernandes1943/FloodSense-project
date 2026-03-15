@@ -1,5 +1,5 @@
 # FLoodSense-project 
-![Logo FloodSense](https://i.imgur.com/2gpOWDM_d.webp)
+![FloodSense Logo](https://i.imgur.com/NTBjUT8.png)
 FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IOT) e uma plataforma web para visualização dos produtos e dados.
 
 O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
