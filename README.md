@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="assets/FLOODSENSE_Logo2.png" width="350">
+  <img src="assets/FLOODSENSE_Logo2.1.png" width="400">
 </p>
 
 
