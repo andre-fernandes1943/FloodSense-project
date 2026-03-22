@@ -25,7 +25,7 @@
 * Relatar problemas ou difilcudades o quanto antes.
 
 ## Prazos
-* Entregaras devem ser feitas antes do prazo combinado.
+* Entregas devem ser feitas antes do prazo combinado.
 * Caso não consiga, avisar o quanto antes.
 
 ## Qualidade
