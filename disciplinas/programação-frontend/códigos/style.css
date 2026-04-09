@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f9fc;
+    color: #1a1a1a;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* menu */
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(10, 42, 67, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area img {
+    height: 100px; /* ajustar aqui o tamanho do logo, ver tb se o container q ta mt grande */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #4da6ff;
+}
+
+.btn-nav {
+    background-color: #4da6ff;
+    padding: 8px 18px;
+    border-radius: 30px;
+}
+
+/* meio usando uma imagem aleatoria */
+.hero {
+    height: 100vh;
+    padding-top: 100px;
+    background: linear-gradient(
+        rgba(10, 42, 67, 0.85),
+        rgba(10, 42, 67, 0.85)
+    ),
+    url('natureza.jpg');   /* imagem pode ser mudada se o restante do grupo quiser */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.tag {
+    background: rgba(77,166,255,0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.hero p {
+    font-weight: 300;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background-color: #4da6ff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-secondary {
+    border: 2px solid #4da6ff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    color: #4da6ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* cor e tamanho das secoes */
+.section {
+    padding: 120px 0;
+}
+
+.light {
+    background: white;
+}
+
+.medium {
+    background: #e3f2fd;
+}
+
+.dark {
+    background: #0a2a43;
+    color: white;
+}
+
+/* area do sobre */
+.sobre-container {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.sobre-imagem img {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.sobre-texto {
+    max-width: 500px;
+}
+
+/* cartoes / aumentar caso tenha mais texto */
+.cards {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    flex: 1;
+    min-width: 250px;
+}
+
+/* formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin-top: 40px;
+}
+
+input, textarea {
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+}
+
+footer {
+    background: #0a2a43;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodSense</title>
+ 
+    <link rel="stylesheet" href="style.css">
+    <script src="Java.js" defer></script>
+
+
+</head>
+<body>
+
+<!-- menu com logo e os links/tentar diminuir o tamanho do menu nao sei se é a logo o problema    -->
+<header>
+        <div class="container nav">
+
+            <div class="logo-area">
+                <img src="logo floodsense.png" alt="Logo FloodSense">
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#funciona">Solução</a></li>
+                    <li><a href="#tecnologia">Tecnologia</a></li>
+                    <li><a href="#contato" class="btn-nav">Solicitar Teste</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+
+<!-- container inicial com botoes e texto do produto -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <span class="tag">Tecnologia Inteligente para Cidades</span>
+
+            <h2>
+                Prevenção de Enchentes<br>
+                com Monitoramento IoT
+            </h2>
+
+            <p>
+                Monitoramento em tempo real do nível da água para reduzir riscos,
+                proteger comunidades e transformar infraestrutura urbana.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#sobre" class="btn-primary">Conheça a Solução</a>
+                <a href="#contato" class="btn-secondary">Solicitar Apresentação</a>
+            </div>
+
+        </div>
+    </section>
+
+
+<!-- setor do sobre -->
+ <!-- colocar a imagem do sensor, lembrar de deixar png e ver a possibilidade de ser video -->
+  <!-- aumentar o texto e tentar deixar mais pra esquerda p nao ficar espaço em branco -->
+    <section id="sobre" class="section light">
+        <div class="container sobre-container">
+
+            <div class="sobre-imagem">
+                <!-- <img src="" colocar imagem aq -->
+                     alt="Sensor FloodSense">
+            </div>
+
+            <div class="sobre-texto">
+                <h2>Sobre o FloodSense</h2>
+                <p>
+                    O FloodSense é uma solução IoT desenvolvida para antecipar
+                    eventos críticos relacionados ao aumento do nível da água
+                    em sistemas urbanos.
+                </p>
+
+                <p>
+                    Utilizando sensores inteligentes e comunicação em tempo real,
+                    nossa tecnologia permite ações preventivas antes que enchentes
+                    causem impactos sociais e estruturais.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+<!-- parte da solucao, lembrar de colocar mais informacoes q ajudem a vender o produto  -->
+    <section id="funciona" class="section medium">
+        <div class="container">
+            <h2>Nossa Solução</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Monitoramento Contínuo</h3>
+                    <p>Sensores capturam dados em tempo real 24/7.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Processamento Inteligente</h3>
+                    <p>Algoritmos analisam variações e detectam riscos.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Alertas Estratégicos</h3>
+                    <p>Notificações automáticas para tomada de decisão rápida.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+<!-- sobre a tecnologia o texto foi gerado por IA, pedir ajuda pro andre fazer um texto melhor, ver se o emoji de check le em todos os navegadores -->
+    <section id="tecnologia" class="section dark">
+        <div class="container">
+            <h2>Tecnologia</h2>
+            <ul class="tech-list">
+                <li>✔ Sensores Ultrassônicos de Alta Precisão</li>
+                <li>✔ Microcontroladores ESP32</li>
+                <li>✔ Comunicação Wi-Fi / Nuvem</li>
+                <li>✔ Dashboard Inteligente</li>
+            </ul>
+        </div>
+    </section>
+
+
+<!-- parte oara solicitar um teste, ver se os campos respeitam as regras de numero, texto e tals.
+  Guilherme:No parte do CEP eu adicionei o onblur para puxar os dados da API e adicionei Rua, Bairro e Cidade para conferir se estava funcionando -->
+    <section id="contato" class="section light">
+        <div class="container">
+            <h2>Solicite um teste</h2>
+
+            <form>
+
+                <input type="text" placeholder="Nome" required>
+
+                <input type="email" placeholder="Email" required>
+
+                <input 
+                    type="tel" 
+                    placeholder="Telefone (ex: (11) 99999-9999)" 
+                    title="Digite seu telefone"
+                    required
+                >
+                <input 
+                
+                    id="cep"
+                    type="text" 
+                    placeholder="CEP (ex: 00000-000)" 
+                    title="Digite seu CEP"
+                    onblur="pesquisacep(this.value)"
+                    required
+                >
+                 <input 
+                    id="rua"
+                    type="text" 
+                    placeholder="Rua" 
+                    title="Digite sua rua"
+                    required
+                >
+                <input 
+                    id="bairro"
+                    type="text" 
+                    placeholder="Bairro" 
+                    title="Digite seu bairro"
+                    required
+                >
+                <input 
+                    id="cidade"
+                    type="text" 
+                    placeholder="Cidade" 
+                    title="Digite sua cidade"
+                    required
+                >
+
+
+<!-- botao de enviar, luiz ira fazer a parte em q recebemos o dado da pessoa e vai pra uma pagina nova onde mede o controle da agua e tals -->
+                <button type="submit" class="btn-primary">
+                    Enviar
+                </button>
+
+            </form>
+        </div>
+    </section>
+
+
+<!-- rodape nao sei o q colocar ainda, ver em sites de vdd pra copiar -->
+    <footer>
+        2026 FloodSense
+    </footer>
+
+</body>
+</html>
