@@ -18,11 +18,11 @@ body {
 
 /* menu */
 header {
-    position: fixed;
+    position: sticky;
     width: 100%;
     background: rgba(10, 42, 67, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
+    backdrop-filter: blur(30px);
+    padding: 0px 0;
     z-index: 1000;
 }
 
@@ -33,7 +33,7 @@ header {
 }
 
 .logo-area img {
-    height: 100px; /* ajustar aqui o tamanho do logo, ver tb se o container q ta mt grande */
+    height: 150px; /* ajustar aqui o tamanho do logo, ver tb se o container q ta mt grande */
 }
 
 nav ul {
