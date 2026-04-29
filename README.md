@@ -4,7 +4,7 @@
 
 
 ---
-FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IOT) e uma plataforma web para visualização dos produtos e dados.
+FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IoT) e uma plataforma web para visualização dos produtos e dados.
 
 O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
 
@@ -39,16 +39,17 @@ Sistema → registra as medições.
 
 Plataforma web → exibe os dados.
 
-Usuários e Autoridades → acompanham informações e alertas.
+Usuários e Autoridades → acompanham informações e tomada de decisão.
 
 ##
 ### Tecnologias Utilizadas
 - HTML 
 - CSS
 - JavaScript
+- C++
 - GitHub
 - Git
-- Simulação IOT
+- Tinkercad
 - Integração com APIs públicas
 
 ##
