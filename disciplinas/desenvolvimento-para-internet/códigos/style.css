@@ -61,13 +61,13 @@ nav a:hover {
 
 /* meio usando uma imagem aleatoria */
 .hero {
-    height: 100vh;
-    padding-top: 100px;
+    height: 80vh;
+    padding-top: 70px;
     background: linear-gradient(
         rgba(10, 42, 67, 0.85),
         rgba(10, 42, 67, 0.85)
     ),
-    url('arduino-diy-microcontroller-1c5ef6-1024.webp');   /* imagem pode ser mudada se o restante do grupo quiser */
+    url('horizon-light-skyline-night-building-city-47201-pxhere.com.jpg');   /* imagem pode ser mudada se o restante do grupo quiser */
     background-size: cover;
     background-position: center;
     display: flex;
