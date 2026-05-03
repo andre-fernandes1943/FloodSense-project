@@ -41,16 +41,49 @@ Plataforma web → exibe os dados.
 
 Usuários e Autoridades → acompanham informações e tomada de decisão.
 
+c++_gif.svg
+css3.svg
+git.png
+html5.svg
+javascript_gif.svg
+
 ##
-### Tecnologias Utilizadas
-- HTML 
-- CSS
-- JavaScript
-- C++
-- GitHub
-- Git
-- Tinkercad
-- Integração com APIs públicas
+# Tecnologias Utilizadas
+<div style="display: flex; align-items: flex-start; align: center">
+<table align="center">
+  <tr>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="65" height="65" />
+      <br>JavaScript
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="65" height="65" />
+      <br>Github
+    </td>
+    <td align="center" width="96"> 
+        <img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" width="48" height="48" alt="Git" />
+      <br>Git
+    </td>
+    <td align="center"  width="96">
+        <img src="https://skillicons.dev/icons?i=html" width="48" height="48" alt="HTML5" />
+      <br>HTML5
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=css" width="48" height="48" alt="css" />
+      <br>CSS
+    </td>
+            <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=vscode" width="48" height="48" alt="VsCode" />
+      <br>VsCode
+    </td>
+    </td>
+ </tr>
+</table>
+<br><br>
+
+
+</div>
+
 
 ##
 ### Equipe e Contexto do projeto
