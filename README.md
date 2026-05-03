@@ -42,7 +42,7 @@ Plataforma web → exibe os dados.
 Usuários e Autoridades → acompanham informações e tomada de decisão.
 
 ##
-### Tecnologias Utilizadas
+# Tecnologias Utilizadas
 <div style="display: flex; align-items: flex-start; align: center">
 <table align="center">
   <tr>
