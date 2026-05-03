@@ -4,7 +4,7 @@
 
 
 ---
-FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IoT) e uma plataforma web para visualização dos produtos e dados.
+FloodSense é um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IoT) integrado a uma plataforma web para visualização e análise  de dados em tempo real.
 
 O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
 
@@ -15,13 +15,13 @@ Em muitos casos, a falta de alertas antecipados difilculta a resposta rápida da
 
 ##
 ### Solução Proposta
-FloodSense propõe o desenvolvimento de um sistema inteligente de monitoramento de enchente utilizando tecnologias IOT integradas a uma plataforma web.
+FloodSense propõe o desenvolvimento de um sistema inteligente de monitoramento de enchente utilizando tecnologias IoT integradas a uma plataforma web.
 
 O sistema é capaz de registrar dados relacionado ao nível da água e disponibilizar essas informações para visualização através de um painel acessível pela plataforma.
 
 ##
 ### Plataforma Web
-A plataforma web do FloodSense é responsável por apresentar os dados coletados pelo dispositivo IOT.
+A plataforma web do FloodSense é responsável por apresentar os dados coletados pelo dispositivo IoT.
 
 Usuários cadastrados no site poderão acessar informações registradas pelos sensores, incluindo medições do nível da água, histórico de dados e possiveis alertas relacionados a riscos de enchentes.
 
@@ -29,11 +29,11 @@ além disso, a plataforma poderá integrar dados de APIs públicas, permitindo c
 
 ##
 ### Funcionamento do Sistema
-O sistema FloodSense funciona a partir da integração entre o dispositivo IOT e a plataforma web.
+O sistema FloodSense funciona a partir da integração entre o dispositivo IoT e a plataforma web.
 
 **Ordem de Funcionamento:**
 
-Sensor IOT → coleta dados do nível de água.
+Sensor IoT → coleta dados do nível de água.
 
 Sistema → registra as medições.
 
