@@ -59,7 +59,7 @@ Usuários e Autoridades → acompanham informações e tomada de decisão.
       <br>Github
     </td>
     <td align="center" width="96"> 
-        <img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" width="48" height="48" alt="Git" />
+        <img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" width="60" height="60" alt="Git" />
       <br>Git
     </td>
     <td align="center"  width="96">
@@ -73,6 +73,10 @@ Usuários e Autoridades → acompanham informações e tomada de decisão.
     <td align="center" width="96">
         <img src="https://skillicons.dev/icons?i=vscode" width="48" height="48" alt="VsCode" />
       <br>VsCode
+    </td>
+     <td align="center" width="96">
+        <img src="https://inside.wooster.edu/technology/wp-content/uploads/sites/83/2018/09/logo-tinkercad-256.png" width="48" height="48" alt="Tinkercad" />
+      <br>Tinkercad
     </td>
     </td>
  </tr>
