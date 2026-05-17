@@ -43,7 +43,7 @@ Usuários e Autoridades → acompanham informações e tomada de decisão.
 
 ##
 # Tecnologias Utilizadas
-<div style="display: flex; align-items: flex-start; align: center">
+
 <table align="center">
   <tr>
     <td align="center" width="96">
@@ -81,10 +81,6 @@ Usuários e Autoridades → acompanham informações e tomada de decisão.
     </td>
  </tr>
 </table>
-<br><br>
-
-
-</div>
 
 
 ##
@@ -93,17 +89,67 @@ Este projeto foi desenvolvido como parte das atividades acadêmicas do curso de 
 
 O objetivo é aplicar, de forma prática, conhecimentos adiquiridos em diferentes disciplinas do curso, integrando conceitos de Front-End, Desenvolvimento para Internet, Internet das coisas(IOT) e Arquitetura de Computadores.
 
+
 **Membros da equipe:**
-- André
-- Anna
-- Guilherme
-- Jessica
-- João
-- Luiz
-- Murilo
-- Thiago
-- Tiago
-- Webert
+
+
+<table >
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/263064410?v=4" width="100px" height="100px"/><br>
+      <b>André Fernandes</b><br>
+      <a href="https://github.com/andre-fernandes1943">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/161133027?s=400&u=eb1f3e39cb9d28babfd658aab78f75a2b805e6ad&v=4" width="100px" height="100px"/><br>
+      <b>Anna Clara Nunes</b><br>
+      <a href="https://github.com/annascooby">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/268053401?v=4" width="100px" height="100px"/><br>
+      <b>João Pais</b><br>
+      <a href="https://github.com/JaoPais">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/261529615?v=4" width="100px" height="100px"/><br>
+      <b>jessica Branco</b><br>
+      <a href="https://github.com/jessicabranco">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/259456493?v=4" width="100px" height="100px"/><br>
+      <b>Guilherme Parnagua</b><br>
+      <a href="https://github.com/Kuronohz">Perfil do GitHub</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/262656253?v=4" width="100px" height="100px"/><br>
+      <b>Luiz Eduardo</b><br>
+      <a href="https://github.com/luiz915-dev">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/269077334?v=4" width="100px" height="100px"/><br>
+      <b>Murilo Legario</b><br>
+      <a href="https://github.com/MuriloolegarioDev">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/262629857?v=4" width="100px" height="100px"/><br>
+      <b>Thiago de Melo</b><br>
+      <a href="https://github.com/ThiagoMF-26">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/217836742?v=4" width="100px" height="100px"/><br>
+      <b>Tiago Egea</b><br>
+      <a href="https://github.com/Tiagoegea1">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/98666771?v=4" width="100px" height="100px"/><br>
+      <b>Webert Moreira</b><br>
+      <a href="https://github.com/WebertMDM">Perfil do GitHub</a>
+    </td>
+  </tr>
+</table>
+
 
 ##
 ### Instituição
