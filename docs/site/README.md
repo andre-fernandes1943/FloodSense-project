@@ -30,7 +30,7 @@ O sistema utiliza a API pública ViaCEP para preenchimento automático de endere
 ## Prévia da Plataforma
 
 <p align="left">
-  <img src="screenshot_site.png" width="300">
+  <img src="screenshot_site.png" width="500">
 </p>
 
 ---
