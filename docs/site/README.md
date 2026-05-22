@@ -1,4 +1,4 @@
-# Site Oficial — FloodSense
+# Site Oficial - FloodSense
 
 Este diretório contém as informações relacionadas ao site oficial da FloodSense.
 
