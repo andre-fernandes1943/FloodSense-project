@@ -1,6 +1,6 @@
 # JavaScript - FloodSense
 
-Esta pasta contém os arquivos JavaScript responsáveis pelas funcionalidades dinâmicas do projeto FloodSense.
+Os arquivos JavaScript  são responsáveis pelas funcionalidades dinâmicas do site daFloodSense.
 
 O código foi desenvolvido para auxiliar no funcionamento da área de cadastro da plataforma, permitindo a validação de informações e o preenchimento automático de dados através da integração com uma API externa.
 
