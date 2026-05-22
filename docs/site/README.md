@@ -10,12 +10,12 @@ https://andre-fernandes1943.github.io/FloodSense-project/
 ---
 
 O site apresenta:
-- informações sobre a empresa;
-- funcionamento da solução IoT;
-- sistema de monitoramento;
-- cadastro de usuários;
-- Página de confirmação de cadastro;
-- integração com API de CEP;
+- informações sobre a empresa
+- funcionamento da solução IoT
+- sistema de monitoramento
+- cadastro de usuários
+- Página de confirmação de cadastro
+- integração com API de CEP
 
 ---
 
@@ -29,11 +29,9 @@ O sistema utiliza a API pública ViaCEP para preenchimento automático de endere
 
 ## Prévia da Plataforma
 
-<img 
-    src="./preview-site.jpg" 
-    alt="Prévia do site FloodSense"
-    width="700"
-/>
+<p align="left">
+  <img src="screenshot_site.png" width="300">
+</p>
 
 ---
 
