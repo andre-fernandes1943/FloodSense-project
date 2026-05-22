@@ -5,9 +5,9 @@ Este diretório contém o material relacionado ao vídeo promocional do projeto 
 ## Equipe FloodSense
 
 <img 
-    src="./img/equipe-floodsense.jpg" 
+    src="assets/TEAM_floodsense.jpg" 
     alt="Equipe de desenvolvimento da FloodSense"
-    width="700"
+    width="300"
 />
 
 ## Acessar vídeo
