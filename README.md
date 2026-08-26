@@ -13,6 +13,11 @@ O aplicativo contará com **inteligência artificial aplicada à análise de dad
 
 O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
 
+### Aplicação da ODS 13 na FloodSense
+A ODS 13 — Ação Contra a Mudança Global do Clima será aplicada à FloodSense por meio do desenvolvimento de soluções voltadas à prevenção e redução dos impactos causados por enchentes. A empresa utilizará tecnologia e inteligência artificial para monitorar riscos, analisar dados climáticos e emitir alertas antecipados à população, permitindo que as pessoas tenham mais tempo para se preparar e buscar locais seguros.
+
+Dessa forma, a FloodSense contribui para a adaptação das cidades aos efeitos das mudanças climáticas, ajudando a reduzir danos materiais, riscos à população e impactos sociais causados por eventos climáticos extremos. A iniciativa também busca conscientizar a sociedade sobre a importância da prevenção e da preparação diante das mudanças no clima.
+
 ##
 ### Motivação do Projeto
 Enchentes são um dos desastres naturais mais recorrentes no Brasil, causando prejuízos materiais, **riscos à vida** e impactos sociais significativos.
