@@ -1,0 +1,1 @@
+Os diagramas de classes são um dos tipos de diagrama mais úteis na UML, pois mapeiam claramente a estrutura de um sistema específico ao modelar suas classes, atributos, operações e relacionamentos entre objetos
