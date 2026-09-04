@@ -7,14 +7,14 @@
 ### FloodSense 2.0
 FloodSense 2.0 é a expansão do projeto inicial, voltada ao aprimoramento do monitoramento e da prevenção de enchentes por meio da integração de novas tecnologias, como aplicativo mobile e inteligência artificial aplicada a análise de dados.
 
-Nessa nova versão, o projeto será desenvolvido como um **aplicativo mobile utilizando Dart e Flutter**, permitindo que os usuários acompanhem a situação das regiões monitoradas.
+Nessa nova versão, o projeto será desenvolvido como um **aplicativo mobile utilizando Dart e Flutter**, permitindo que os usuários registre situações relacionadas a alagamentos, enchentes e possíveis riscos ambientais por meio de fotos tiradas dentro do aplicativo.
 
-O aplicativo contará com **inteligência artificial aplicada à análise de dados**, tornando a IA parte central da solução.
+O aplicativo contará com **inteligência artificial** para análisar as imagens das ocorrências e determinar se a situação identificada é relevante o suficiente para ser encaminhada as autoridades locais responsáveis, tornando a IA parte central da solução.
 
 O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
 
 ##
-### Aplicação da ODS 13 na FloodSense
+### Aplicação da ODS 13 dentro do projeto FloodSense
 A ODS 13 — Ação Contra a Mudança Global do Clima será aplicada à FloodSense por meio do desenvolvimento de soluções voltadas à prevenção e redução dos impactos causados por enchentes. A empresa utilizará tecnologia e inteligência artificial para monitorar riscos, analisar dados climáticos e emitir alertas antecipados à população, permitindo que as pessoas tenham mais tempo para se preparar e buscar locais seguros.
 
 Dessa forma, a FloodSense contribui para a adaptação das cidades aos efeitos das mudanças climáticas, ajudando a reduzir danos materiais, riscos à população e impactos sociais causados por eventos climáticos extremos. A iniciativa também busca conscientizar a sociedade sobre a importância da prevenção e da preparação diante das mudanças no clima.
@@ -25,6 +25,8 @@ Enchentes são um dos desastres naturais mais recorrentes no Brasil, causando pr
 Em muitos casos, a falta de alertas antecipados difilculta a resposta rápida das autoridades e da população.
 
 ##
+---
+
 ### FloodSense 1.0
 A primeira versão do FloodSense propõe o desenvolvimento de um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IoT) integrado a uma plataforma web para visualização e análise  de dados em tempo real.
 
@@ -105,49 +107,37 @@ O objetivo é aplicar, de forma prática, conhecimentos adiquiridos em diferente
 <table >
   <tr>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/263064410?v=4" width="100px" height="100px"/><br>
+      <img src="https://avatars.githubusercontent.com/u/263064410?v=4" width="180px" height="180px"/><br>
       <b>André Fernandes</b><br>
       <a href="https://github.com/andre-fernandes1943">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/161133027?s=400&u=eb1f3e39cb9d28babfd658aab78f75a2b805e6ad&v=4" width="100px" height="100px"/><br>
-      <b>Anna Clara Nunes</b><br>
-      <a href="https://github.com/annascooby">Perfil do GitHub</a>
+      <img src="https://avatars.githubusercontent.com/u/316414427?v=4" width="180px" height="180px"/><br>
+      <b>Nicoli Tigre</b><br>
+      <a href="https://github.com/nicolitigre-maker">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/268053401?v=4" width="100px" height="100px"/><br>
-      <b>João Pais</b><br>
-      <a href="https://github.com/JaoPais">Perfil do GitHub</a>
+      <img src="https://avatars.githubusercontent.com/u/264300136?v=4" width="180px" height="180px"/><br>
+      <b>ricardosr-wq</b><br>
+      <a href="https://github.com/ricardosr-wq">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/261529615?v=4" width="100px" height="100px"/><br>
+      <img src="https://avatars.githubusercontent.com/u/261529615?v=4" width="180px" height="180px"/><br>
       <b>jessica Branco</b><br>
       <a href="https://github.com/jessicabranco">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/259456493?v=4" width="100px" height="100px"/><br>
-      <b>Guilherme Parnagua</b><br>
-      <a href="https://github.com/Kuronohz">Perfil do GitHub</a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/262656253?v=4" width="100px" height="100px"/><br>
-      <b>Luiz Eduardo</b><br>
-      <a href="https://github.com/luiz915-dev">Perfil do GitHub</a>
-    </td>
-    <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/269077334?v=4" width="100px" height="100px"/><br>
+      <img src="https://avatars.githubusercontent.com/u/269077334?v=4" width="180px" height="180px"/><br>
       <b>Murilo Legario</b><br>
       <a href="https://github.com/MuriloolegarioDev">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/262629857?v=4" width="100px" height="100px"/><br>
+      <img src="https://avatars.githubusercontent.com/u/262629857?v=4" width="180px" height="180px"/><br>
       <b>Thiago de Melo</b><br>
       <a href="https://github.com/ThiagoMF-26">Perfil do GitHub</a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/217836742?v=4" width="100px" height="100px"/><br>
+      <img src="https://avatars.githubusercontent.com/u/217836742?v=4" width="180px" height="180px"/><br>
       <b>Tiago Egea</b><br>
       <a href="https://github.com/Tiagoegea1">Perfil do GitHub</a>
     </td>
