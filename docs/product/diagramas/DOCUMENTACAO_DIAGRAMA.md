@@ -6,7 +6,7 @@ Este documento explica o diagrama de classes atual do sistema FloodSense. O diag
 
 O FloodSense foi estruturado para permitir o registro de ocorrências, coleta de localização e imagens, análise por inteligência artificial e, quando necessário, encaminhamento da ocorrência para um órgão responsável.
 
-> **Observação:** esta é a versão atual do diagrama. Algumas classes, atributos, métodos e relacionamentos poderão ser alterados nos próximos diagramas conforme o projeto evoluir.
+ **Observação:** esta é a versão atual do diagrama. Algumas classes, atributos, métodos e relacionamentos poderão ser alterados nos próximos diagramas conforme o projeto evoluir.
 
 ## 2. Classes
 
