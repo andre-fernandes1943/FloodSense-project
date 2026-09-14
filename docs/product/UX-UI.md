@@ -15,3 +15,7 @@ A primeira tela desenvolvida foi a tela de login. Ela representa o primeiro aces
 Nela temos os campos de e-mail e senha, o botão "Entrar" e a opção "Criar cadastro" para novos usuários.
 
 O protótipo mantém a identidade visual do FloodSense e servirá como base para o desenvolvimento das próximas telas do aplicativo.
+
+### Protótipo da Tela de Login
+
+![Protótipo da tela de login do FloodSense](prototipos/Tela%20inicial%20Floodsense.jpeg)
