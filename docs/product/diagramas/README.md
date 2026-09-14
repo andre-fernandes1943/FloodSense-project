@@ -6,7 +6,7 @@ Este repositório contém a imagem e a documentação do diagrama de classes atu
 
 ### Arquivos
 
-- [Clique aqui para acessar a pasta](./../tree/a1b2c3d4/src/componentes)
+- [Clique aqui para acessar a pasta](./../Levantamento%20das%20Classes%20—%20FloodSense.png )
 Levantamento%20das%20Classes%20—%20FloodSense.png 
 - `DOCUMENTACAO_DIAGRAMA.md` — documentação explicando as classes, atributos, métodos, relacionamentos e fluxo do diagrama.
 
