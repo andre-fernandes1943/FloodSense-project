@@ -19,7 +19,7 @@ Responsável pelo armazenamento das informações do sistema como os dados do us
 
 ## Serviço de Inteligência Artificial
 Serviço externo responsável pela análise do agente de IA.<br>
-- [] decidir qual agente de IA vamos usar no projeto e atualizar o diagrama de contêineres(C4-model).
+- [ ] decidir qual agente de IA vamos usar no projeto e atualizar o diagrama de contêineres(C4-model).
 
 
 
