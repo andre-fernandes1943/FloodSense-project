@@ -148,6 +148,4 @@ O diagrama apresentado corresponde ao estado atual do projeto. Durante o desenvo
 
 A imagem do diagrama está disponível no arquivo:
 
-`diagrama-classes-floodsense.png`
-
-Este arquivo deve ser colocado no repositório do projeto junto com esta documentação.
+- [PNG do diagrama](/docs/product/diagramas/Levantamento%20das%20Classes%20%E2%80%94%20FloodSense.png)
