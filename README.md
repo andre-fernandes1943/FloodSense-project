@@ -98,7 +98,7 @@ Usuários e Autoridades → acompanham informações e tomada de decisão.
 ### Equipe e Contexto do projeto
 Este projeto foi desenvolvido como parte das atividades acadêmicas do curso de Tecnologia em Análise de Desenvolvimento de Sistemas da UNINOVE.
 
-O objetivo é aplicar, de forma prática, conhecimentos adiquiridos em diferentes disciplinas do curso, integrando conceitos de Front-End, Desenvolvimento para Internet, Internet das coisas(IOT) e Arquitetura de Computadores.
+O objetivo é aplicar, de forma prática, conhecimentos adiquiridos em diferentes disciplinas do curso, integrando conceitos de Front-End, Backend, Internet das coisas(IOT), Gestão, Arquitetura de Software e Regras de Negócio.
 
 
 **Membros da equipe:**
