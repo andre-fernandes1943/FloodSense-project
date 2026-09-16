@@ -63,3 +63,9 @@ A exclusão da conta do usuário não será considerada uma funcionalidade obrig
 
 ## RN20 - Escopo do MVP
 As funcionalidades do sistema deverão priorizar o registro, análise, classificação, armazenamento e consulta de ocorrências relacionadas a possíveis alagamentos, enchentes e situações de risco.
+
+## RN21 - Restrição de idade
+
+O aplicativo FloodSense será acessível exclusivamente para usuários maiores de 18 anos.
+
+O sistema deverá verificar a idade informada pelo usuário durante o cadastro e impedir o acesso de pessoas menores de 18 anos.
