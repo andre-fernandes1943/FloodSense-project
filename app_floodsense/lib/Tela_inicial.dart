@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Cores exatas da sua imagem
+// Cores
 const corAzulEscuro = Color(0xFF0A4B8C);
 const corAzulMedio = Color(0xFF2576D7);
 const corAzulClaro = Color(0xFFE0EFFC);
@@ -17,13 +17,10 @@ class FloodSenseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FloodSense 2.0',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Roboto',
-      ),
-      home: const LoginPage(),
+      title: 'FloodSense',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
+      home: const LoginPage(),
     );
   }
 }
@@ -35,16 +32,11 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // 🔵 FUNDO COM GRADIENTE AZUL IGUAL A IMAGEM
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0A4B8C), // azul escuro no canto superior
-              Color(0xFFB3D8F5), // azul mais claro
-              Color(0xFFF0F7FF), // bem claro embaixo
-            ],
+            colors: [Color(0xFF0A4B8C), Color(0xFFB3D8F5), Color(0xFFF0F7FF)],
             stops: [0.0, 0.35, 0.7],
           ),
         ),
@@ -54,8 +46,9 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Logo
                 const SizedBox(height: 20),
+
+                // Logo
                 Container(
                   width: 120,
                   height: 120,
@@ -70,61 +63,31 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.wifi, color: corAzulEscuro, size: 22),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Icon(Icons.water_drop, color: corAzulMedio, size: 34),
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 16),
 
-                // Título
-                RichText(
-                  text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: const [
-                      TextSpan(
-                        text: 'Flood',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: corAzulEscuro,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Sense',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: corAzulMedio,
-                        ),
-                      ),
-                      WidgetSpan(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: ColoredBox(
-                            color: corLaranja,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                              child: Text(
-                                '2.0',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                // Nome FloodSense SEM 2.0 e SEM sublinhado
+                const Text(
+                  'FloodSense',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: corAzulEscuro,
+                    decoration: TextDecoration.none,
                   ),
                 ),
+
                 const SizedBox(height: 8),
+
                 const Text(
                   'Tecnologia para prevenir\ne proteger vidas.',
                   textAlign: TextAlign.center,
@@ -132,8 +95,10 @@ class LoginPage extends StatelessWidget {
                     fontSize: 16,
                     color: corAzulEscuro,
                     height: 1.3,
+                    decoration: TextDecoration.none,
                   ),
                 ),
+
                 const SizedBox(height: 40),
 
                 // Bem-vindo
@@ -143,21 +108,32 @@ class LoginPage extends StatelessWidget {
                     fontSize: 34,
                     fontWeight: FontWeight.bold,
                     color: corAzulEscuro,
+                    decoration: TextDecoration.none,
                   ),
                 ),
+
                 const SizedBox(height: 8),
+
                 const Text(
-                  'Faça seu login para continuar\nno FloodSense 2.0.',
+                  'Faça seu login para continuar\nno FloodSense.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Color(0xFF444444)),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF444444),
+                    decoration: TextDecoration.none,
+                  ),
                 ),
+
                 const SizedBox(height: 32),
 
                 // Campo E-mail
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'E-mail',
-                    prefixIcon: const Icon(Icons.email_outlined, color: corAzulMedio),
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: corAzulMedio,
+                    ),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -171,15 +147,22 @@ class LoginPage extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
+
                 const SizedBox(height: 16),
 
                 // Campo Senha
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Senha',
-                    prefixIcon: const Icon(Icons.lock_outlined, color: corAzulMedio),
+                    prefixIcon: const Icon(
+                      Icons.lock_outlined,
+                      color: corAzulMedio,
+                    ),
                     suffixIcon: IconButton(
-                      icon: const Icon(Icons.visibility_outlined, color: corAzulMedio),
+                      icon: const Icon(
+                        Icons.visibility_outlined,
+                        color: corAzulMedio,
+                      ),
                       onPressed: () {},
                     ),
                     filled: true,
@@ -195,6 +178,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   obscureText: true,
                 ),
+
                 const SizedBox(height: 8),
 
                 // Esqueci minha senha
@@ -204,10 +188,15 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {},
                     child: const Text(
                       'Esqueci minha senha?',
-                      style: TextStyle(color: corLaranja, fontSize: 15),
+                      style: TextStyle(
+                        color: corLaranja,
+                        fontSize: 15,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 8),
 
                 // Botão Entrar
@@ -232,6 +221,7 @@ class LoginPage extends StatelessWidget {
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                         SizedBox(width: 8),
@@ -240,9 +230,10 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 32),
 
-                // Divisor + Criar conta
+                // Divisor
                 const Row(
                   children: [
                     Expanded(child: Divider(color: corAzulClaro)),
@@ -250,12 +241,16 @@ class LoginPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         'Ainda não tem uma conta?',
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
                     ),
                     Expanded(child: Divider(color: corAzulClaro)),
                   ],
                 ),
+
                 const SizedBox(height: 16),
 
                 // Botão Criar cadastro
@@ -276,19 +271,21 @@ class LoginPage extends StatelessWidget {
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: corAzulEscuro,
+                        decoration: TextDecoration.none,
                       ),
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 30),
 
-                // 🌆 IMAGEM DA CIDADE NO RODAPÉ
+                // Imagem da cidade no rodapé
                 Container(
                   height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: NetworkImage(
                         'https://images.unsplash.com/photo-1577945740737-64f462f503e8?w=800&q=80',
                       ),
