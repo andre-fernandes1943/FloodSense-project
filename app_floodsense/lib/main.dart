@@ -17,7 +17,7 @@ class FloodSenseApp extends StatelessWidget {
         fontFamily: 'Arial',
         useMaterial3: true,
       ),
-      home: const LoginPage(), // <- Aqui você coloca a classe da tela inicial Jessica, eu não fiz isso porque não aprendi sobre o seu codigo ainda(obs feita por: André)
+      home: const LoginPage(),
     );
   }
 }

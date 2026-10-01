@@ -17,7 +17,7 @@ class FloodSenseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FloodSense',
+      title: 'FloodSense 2.0',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
       home: const LoginPage(),
@@ -204,7 +204,7 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: corLaranja,
+                      backgroundColor: const Color.fromARGB(237, 255, 121, 32),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
