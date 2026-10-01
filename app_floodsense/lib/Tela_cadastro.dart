@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const FloodSenseApp());
-}
+import 'Tela_ocorrencia.dart';
 
 // CORES DO FLOODSENSE
 const azulEscuro = Color(0xFF064A98);
@@ -10,23 +7,6 @@ const azulMedio = Color(0xFF159FE0);
 const azulClaro = Color(0xFFE8F7FF);
 const laranja = Color(0xFFFF7A20);
 const cinzaTexto = Color(0xFF526581);
-
-class FloodSenseApp extends StatelessWidget {
-  const FloodSenseApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'FloodSense 2.0',
-      theme: ThemeData(
-        fontFamily: 'Arial',
-        useMaterial3: true,
-      ),
-      home: const TelaCadastro(),
-    );
-  }
-}
 
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
@@ -249,7 +229,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         width: double.infinity,
                         height: 58,
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TelaOcorrencia(),
+                              ),
+                            );
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: azulEscuro,
                             side: const BorderSide(

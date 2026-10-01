@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Tela_cadastro.dart';
 
 // Cores
 const corAzulEscuro = Color(0xFF0A4B8C);
@@ -6,24 +7,6 @@ const corAzulMedio = Color(0xFF2576D7);
 const corAzulClaro = Color(0xFFE0EFFC);
 const corLaranja = Color(0xFFFF7A20);
 const corFundo = Color(0xFFF0F7FF);
-
-void main() {
-  runApp(const FloodSenseApp());
-}
-
-class FloodSenseApp extends StatelessWidget {
-  const FloodSenseApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FloodSense 2.0',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
-      home: const LoginPage(),
-    );
-  }
-}
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -264,7 +247,14 @@ class LoginPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TelaCadastro(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Criar cadastro',
                       style: TextStyle(
