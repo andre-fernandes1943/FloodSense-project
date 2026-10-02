@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Tela_ocorrenciaTeste.dart';
 
 void main() {
   runApp(const FloodSenseApp());
@@ -167,7 +168,7 @@ class TelaOcorrencia extends StatelessWidget {
                     alignment: Alignment.centerLeft,
 
                     child: Text(
-                      'Olá, Jéssica! 👋',
+                      'Olá, Usuário! 👋',
 
                       style: TextStyle(
                         color: azulEscuro,
@@ -194,86 +195,74 @@ class TelaOcorrencia extends StatelessWidget {
                   const SizedBox(height: 30),
 
                   // REGISTRAR OCORRÊNCIA
-                  Container(
-                    width: double.infinity,
-
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 28,
-
-                      horizontal: 25,
-                    ),
-
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFFFA12A), Color(0xFFFF6B18)],
-                      ),
-
-                      borderRadius: BorderRadius.circular(28),
-
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.orange.withValues(alpha: 0.25),
-
-                          blurRadius: 12,
-
-                          offset: const Offset(0, 6),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OccurrenceFormPage(),
                         ),
-                      ],
-                    ),
-
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.add_a_photo_outlined,
-
-                          color: Colors.white,
-
-                          size: 48,
-                        ),
-
-                        SizedBox(width: 20),
-
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text(
-                                'Registrar ocorrência',
-
-                                style: TextStyle(
-                                  color: Colors.white,
-
-                                  fontSize: 24,
-
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-
-                              SizedBox(height: 6),
-
-                              Text(
-                                'Envie fotos, descreva o problema\n'
-                                'e ajude a sua cidade.',
-
-                                style: TextStyle(
-                                  color: Colors.white,
-
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 45,
+                        horizontal: 28,
+                      ), // EdgeInsets.symmetric
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color.fromARGB(230, 255, 163, 42), Color.fromARGB(244, 255, 104, 16)],
+                        ), // LinearGradient
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.25),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ), // BoxShadow
+                        ],
+                      ), // BoxDecoration
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            size: 50,
                           ),
-                        ),
-
-                        Icon(
-                          Icons.arrow_forward,
-
-                          color: Colors.white,
-
-                          size: 32,
-                        ),
-                      ],
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Registrar\nocorrência',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    height: 1.2,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  'Envie fotos, descreva o problema e ajude a sua cidade',
+                                  style: TextStyle(
+                                    color: const Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
