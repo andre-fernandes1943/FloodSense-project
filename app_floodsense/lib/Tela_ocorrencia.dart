@@ -127,12 +127,11 @@ class TelaOcorrencia extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   // LOGO
-                  const Icon(
-                    Icons.water_drop,
-
-                    color: Color(0xFF168DE2),
-
-                    size: 60,
+                  Image.asset(
+                    'lib/assets/logo_floodsense.png',
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.contain,
                   ),
 
                   const Text(
