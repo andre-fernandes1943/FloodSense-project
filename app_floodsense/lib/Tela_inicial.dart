@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'Tela_cadastro.dart';
 
 // Cores
@@ -32,28 +33,11 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Logo
-                Container(
+                Image.asset(
+                  'lib/assets/logo_floodsense.png',
                   width: 120,
                   height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(60),
-                    boxShadow: [
-                      BoxShadow(
-                        color: corAzulMedio.withValues(alpha: 0.15),
-                        blurRadius: 15,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.wifi, color: corAzulEscuro, size: 22),
-                      SizedBox(height: 4),
-                      Icon(Icons.water_drop, color: corAzulMedio, size: 34),
-                    ],
-                  ),
+                  fit: BoxFit.contain,
                 ),
 
                 const SizedBox(height: 16),
