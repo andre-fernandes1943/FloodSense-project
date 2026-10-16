@@ -338,7 +338,7 @@ class CampoCadastro extends StatelessWidget {
   }
 }
 
-// LOGO FEITO NO PRÓPRIO FLUTTER
+// LOGO OFICIAL DO FLOODSENSE
 class FloodSenseLogo extends StatelessWidget {
   const FloodSenseLogo({super.key});
 
@@ -346,64 +346,11 @@ class FloodSenseLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        Image.asset(
+          'lib/assets/logo_floodsense.png',
           width: 118,
           height: 118,
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.75),
-            border: Border.all(
-              color: azulEscuro,
-              width: 5,
-            ),
-            borderRadius: BorderRadius.circular(34),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Positioned(
-                top: 12,
-                child: Icon(
-                  Icons.wifi,
-                  color: azulMedio,
-                  size: 42,
-                ),
-              ),
-              const Positioned(
-                top: 45,
-                child: Icon(
-                  Icons.water_drop,
-                  color: azulMedio,
-                  size: 55,
-                ),
-              ),
-              Positioned(
-                bottom: 7,
-                child: SizedBox(
-                  width: 82,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 3,
-                        decoration: BoxDecoration(
-                          color: azulEscuro,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Container(
-                        height: 3,
-                        width: 62,
-                        decoration: BoxDecoration(
-                          color: azulMedio,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          fit: BoxFit.contain,
         ),
 
         const SizedBox(height: 10),
