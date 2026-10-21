@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'Tela_cadastro.dart';
 
 // Cores
@@ -42,7 +41,7 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // Nome FloodSense SEM 2.0 e SEM sublinhado
+                // Nome FloodSense no topo da tela de cadastro
                 const Text(
                   'FloodSense',
                   style: TextStyle(
