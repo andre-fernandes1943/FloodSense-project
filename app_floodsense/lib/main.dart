@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Tela_inicial.dart'; 
+import 'Tela_inicial.dart';
 
 void main() {
   runApp(const FloodSenseApp());
@@ -11,12 +11,9 @@ class FloodSenseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'FloodSense',
       debugShowCheckedModeBanner: false,
-      title: 'FloodSense 2.0',
-      theme: ThemeData(
-        fontFamily: 'Arial',
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
       home: const LoginPage(),
     );
   }

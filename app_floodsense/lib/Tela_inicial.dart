@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'Tela_cadastro.dart';
+import 'Tela_ocorrencia.dart';
 
 // Cores
 const corAzulEscuro = Color(0xFF0A4B8C);
@@ -177,7 +179,15 @@ class LoginPage extends StatelessWidget {
                       ),
                       elevation: 5,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Acesso provisório do protótipo, sem autenticação.
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TelaOcorrencia(),
+                        ),
+                      );
+                    },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

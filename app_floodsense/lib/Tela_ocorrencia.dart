@@ -1,27 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Tela_ocorrenciaTeste.dart';
 
-void main() {
-  runApp(const FloodSenseApp());
-}
-
-class FloodSenseApp extends StatelessWidget {
-  const FloodSenseApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      title: 'FloodSense',
-
-      theme: ThemeData(useMaterial3: true),
-
-      home: const TelaOcorrencia(),
-    );
-  }
-}
-
 class TelaOcorrencia extends StatelessWidget {
   const TelaOcorrencia({super.key});
 
