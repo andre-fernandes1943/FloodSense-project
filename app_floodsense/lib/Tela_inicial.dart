@@ -6,7 +6,7 @@ import 'Tela_ocorrencia.dart';
 // Cores
 const corAzulEscuro = Color(0xFF0A4B8C);
 const corAzulMedio = Color(0xFF2576D7);
-const corAzulClaro = Color(0xFFE0EFFC);
+const corAzulClaro = Color.fromARGB(255, 84, 162, 231);
 const corLaranja = Color(0xFFFF7A20);
 const corFundo = Color(0xFFF0F7FF);
 
@@ -34,11 +34,24 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Logo
-                Image.asset(
-                  'lib/assets/logo_floodsense.png',
-                  width: 120,
-                  height: 120,
-                  fit: BoxFit.contain,
+                // Logo
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle, // Mantém o efeito arredondado atrás do escudo
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.2), // Cor branca com transparência suave
+                        blurRadius: 50.0, // Define o quão esfumaçado/suave será o contorno
+                        spreadRadius: 1.0, // Define a expansão do contorno além da imagem
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    'lib/assets/logo_floodsense.png',
+                    width: 120,
+                    height: 120,
+                    fit: BoxFit.contain,
+                  ),
                 ),
 
                 const SizedBox(height: 16),
