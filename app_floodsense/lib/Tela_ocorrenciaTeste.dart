@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:io'; // Necessário para exibir a foto tirada usando Image.file
+import 'dart:io'; 
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart'; // Pacote da câmera
+import 'package:image_picker/image_picker.dart'; // NOVO: Pacote da câmera nativa
 
 const _blue = Color(0xFF0754A5);
 const _brightBlue = Color(0xFF168EE5);
@@ -55,47 +55,15 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
   // Força o horário exato de Brasília (UTC-3), independente do fuso do celular
   DateTime _occurredAt = DateTime.now().toUtc().subtract(const Duration(hours: 3));
 
-  // Variáveis para a Câmera
-  CameraController? _cameraController;
-  bool _isCameraInitialized = false;
+  // Variáveis para a Câmera Nativa
+  final ImagePicker _picker = ImagePicker();
   XFile? _capturedImage; // Armazena a foto tirada
   bool _isPhotoConfirmed = false; // Controla se o usuário aceitou a foto
-
-  @override
-  void initState() {
-    super.initState();
-    _initCamera();
-  }
-
-  // Inicializa o acesso à câmera nativa
-  Future<void> _initCamera() async {
-    try {
-      final cameras = await availableCameras();
-      if (cameras.isEmpty) return;
-
-      // Pegamos a primeira câmera disponível (geralmente a traseira)
-      _cameraController = CameraController(
-        cameras.first,
-        ResolutionPreset.high,
-        enableAudio: false, // Não precisamos de áudio para fotos
-      );
-
-      await _cameraController!.initialize();
-      if (mounted) {
-        setState(() {
-          _isCameraInitialized = true;
-        });
-      }
-    } catch (e) {
-      debugPrint('Erro ao inicializar a câmera: $e');
-    }
-  }
 
   @override
   void dispose() {
     _descriptionController.dispose();
     _locationController.dispose();
-    _cameraController?.dispose(); // Sempre liberar a câmera ao fechar a tela
     super.dispose();
   }
 
@@ -133,27 +101,33 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // Função para capturar a foto
+  // Função para abrir a câmera nativa do celular
   Future<void> _takePhoto() async {
-    if (_cameraController == null || !_cameraController!.value.isInitialized) return;
-    
     try {
-      final XFile photo = await _cameraController!.takePicture();
-      setState(() {
-        _capturedImage = photo;
-        _isPhotoConfirmed = false; // Entra no modo de revisão da foto
-      });
+      final XFile? photo = await _picker.pickImage(
+        source: ImageSource.camera,
+        preferredCameraDevice: CameraDevice.rear,
+      );
+      
+      if (photo != null) {
+        setState(() {
+          _capturedImage = photo;
+          _isPhotoConfirmed = false; // Entra no modo de revisão da foto
+        });
+      }
     } catch (e) {
-      debugPrint('Erro ao tirar foto: $e');
+      debugPrint('Erro ao abrir câmera nativa: $e');
     }
   }
 
-  // Função para descartar a foto e abrir a câmera novamente
+  // Função para descartar a foto e abrir a câmera nativa novamente
   void _retakePhoto() {
     setState(() {
       _capturedImage = null;
       _isPhotoConfirmed = false;
     });
+    // Opcional: já reabrir a câmera automaticamente
+    _takePhoto(); 
   }
 
   // Função para confirmar o uso da foto capturada
@@ -165,14 +139,11 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
 
   // Função pronta para integrar o pacote geolocator no futuro
   Future<void> _getCurrentLocation() async {
-    // TODO: Adicionar o pacote geolocator no pubspec.yaml e implementar a busca real de lat/long.
-    // Exemplo: Position position = await Geolocator.getCurrentPosition();
     setState(() {
       _locationController.text = "Buscando localização atual...";
-      // Simulação rápida para feedback visual
       Future.delayed(const Duration(seconds: 1), () {
         if (mounted) {
-          _locationController.text = "Av. Paulista, 1578 - São Paulo, SP"; // Exemplo
+          _locationController.text = "Av. Paulista, 1578 - São Paulo, SP";
         }
       });
     });
@@ -194,9 +165,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     final payload = {
       'descricao': _descriptionController.text.trim(),
       'localizacao': _locationController.text.trim(),
-      'dataHora': _occurredAt.toIso8601String(), // Já está no fuso UTC-3 (Brasília)
-      // O path local será usado para fazer upload no Supabase Storage primeiro.
-      // Depois do upload, você trocará isso pela URL gerada pelo Supabase.
+      'dataHora': _occurredAt.toIso8601String(),
       'foto_caminho_local': _capturedImage!.path, 
     };
     
@@ -286,7 +255,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(240), // withValues(alpha) -> withAlpha (240 = 94%)
+                    color: Colors.white.withAlpha(240),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Column(
@@ -304,7 +273,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                             child: AspectRatio(
                               aspectRatio: 9 / 16, // Proporção exata pedida
                               child: Container(
-                                color: Colors.black,
+                                color: const Color(0xFF2C3E50), // Cor de fundo suave antes da foto
                                 child: _buildCameraContent(),
                               ),
                             ),
@@ -340,7 +309,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                         decoration: InputDecoration(
                           hintText: 'Digite o endereço ou uma referência',
                           prefixIcon: const Icon(Icons.location_on_outlined),
-                          // Botão no canto direito do input para ativar o GPS
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.my_location, color: _brightBlue),
                             tooltip: 'Pegar localização atual',
@@ -389,7 +357,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     ),
   );
 
-  // Constrói a interface interna do retângulo 9:16 da câmera
+  // Constrói a interface interna do retângulo 9:16
   Widget _buildCameraContent() {
     // 1. Se a foto foi tirada, mostra a foto e as opções de confirmar/refazer
     if (_capturedImage != null) {
@@ -422,7 +390,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                 ],
               ),
             ),
-          // Indicador visual quando a foto já está confirmada
           if (_isPhotoConfirmed)
             Positioned(
               top: 10,
@@ -440,31 +407,24 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
       );
     }
     
-    // 2. Se a câmera ainda está carregando, mostra o loading
-    if (!_isCameraInitialized) {
-      return const Center(child: CircularProgressIndicator(color: _paleBlue));
-    }
-    
-    // 3. Mostra o feed ao vivo da câmera para tirar a foto
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        CameraPreview(_cameraController!),
-        Positioned(
-          bottom: 16,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: FloatingActionButton(
-              onPressed: _takePhoto,
+    // 2. Se a foto não foi tirada ainda, exibe o botão para abrir a câmera do celular
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.add_a_photo_outlined, size: 48, color: Colors.white70),
+          const SizedBox(height: 16),
+          FilledButton.icon(
+            onPressed: _takePhoto,
+            icon: const Icon(Icons.camera_alt),
+            label: const Text('Abrir Câmera'),
+            style: FilledButton.styleFrom(
               backgroundColor: _orange,
-              elevation: 0,
-              shape: const CircleBorder(),
-              child: const Icon(Icons.camera_alt, color: Colors.white),
+              foregroundColor: Colors.white,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
