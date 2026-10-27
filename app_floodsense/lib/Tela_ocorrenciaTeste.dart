@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io'; 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart'; // NOVO: Pacote da câmera nativa
+import 'package:image_picker/image_picker.dart'; 
 
 const _blue = Color(0xFF0754A5);
 const _brightBlue = Color(0xFF168EE5);
@@ -52,13 +52,11 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
   
-  // Força o horário exato de Brasília (UTC-3), independente do fuso do celular
   DateTime _occurredAt = DateTime.now().toUtc().subtract(const Duration(hours: 3));
 
-  // Variáveis para a Câmera Nativa
+  // Variáveis para a Câmera Nativa (Removida a variável _isPhotoConfirmed)
   final ImagePicker _picker = ImagePicker();
-  XFile? _capturedImage; // Armazena a foto tirada
-  bool _isPhotoConfirmed = false; // Controla se o usuário aceitou a foto
+  XFile? _capturedImage; 
 
   @override
   void dispose() {
@@ -101,7 +99,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // Função para abrir a câmera nativa do celular
   Future<void> _takePhoto() async {
     try {
       final XFile? photo = await _picker.pickImage(
@@ -112,7 +109,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
       if (photo != null) {
         setState(() {
           _capturedImage = photo;
-          _isPhotoConfirmed = false; // Entra no modo de revisão da foto
         });
       }
     } catch (e) {
@@ -120,24 +116,14 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     }
   }
 
-  // Função para descartar a foto e abrir a câmera nativa novamente
+  // Apenas descarta a foto atual e reabre a câmera nativa
   void _retakePhoto() {
     setState(() {
       _capturedImage = null;
-      _isPhotoConfirmed = false;
     });
-    // Opcional: já reabrir a câmera automaticamente
     _takePhoto(); 
   }
 
-  // Função para confirmar o uso da foto capturada
-  void _confirmPhoto() {
-    setState(() {
-      _isPhotoConfirmed = true;
-    });
-  }
-
-  // Função pronta para integrar o pacote geolocator no futuro
   Future<void> _getCurrentLocation() async {
     setState(() {
       _locationController.text = "Buscando localização atual...";
@@ -149,19 +135,17 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // Preparação estruturada para enviar os dados ao Supabase
   Future<void> _prepareSubmission() async {
     if (!_formKey.currentState!.validate()) return;
     
-    // Validação extra: garantir que uma foto foi confirmada
-    if (_capturedImage == null || !_isPhotoConfirmed) {
+    // Validação ajustada: apenas verifica se a foto foi tirada
+    if (_capturedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, tire e confirme uma foto antes de enviar.')),
+        const SnackBar(content: Text('Por favor, tire uma foto antes de enviar.')),
       );
       return;
     }
 
-    // Ambiente pronto para enviar ao Supabase
     final payload = {
       'descricao': _descriptionController.text.trim(),
       'localizacao': _locationController.text.trim(),
@@ -264,16 +248,15 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                       _sectionLabel('Foto da ocorrência'),
                       const SizedBox(height: 8),
                       
-                      // AREA DA CÂMERA COM PROPORÇÃO 9:16
                       Center(
                         child: SizedBox(
-                          height: 380, // Altura limite para não ocupar a tela toda
+                          height: 380, 
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: AspectRatio(
-                              aspectRatio: 9 / 16, // Proporção exata pedida
+                              aspectRatio: 9 / 16, 
                               child: Container(
-                                color: const Color(0xFF2C3E50), // Cor de fundo suave antes da foto
+                                color: const Color(0xFF2C3E50), 
                                 child: _buildCameraContent(),
                               ),
                             ),
@@ -357,52 +340,43 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     ),
   );
 
-  // Constrói a interface interna do retângulo 9:16
   Widget _buildCameraContent() {
-    // 1. Se a foto foi tirada, mostra a foto e as opções de confirmar/refazer
+    // 1. Se a foto já foi tirada, mostra a imagem limpa e os ícones no canto
     if (_capturedImage != null) {
       return Stack(
         fit: StackFit.expand,
         children: [
           Image.file(File(_capturedImage!.path), fit: BoxFit.cover),
-          if (!_isPhotoConfirmed)
-            Container(
-              color: Colors.black.withAlpha(150),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FilledButton.icon(
-                    onPressed: _confirmPhoto,
-                    icon: const Icon(Icons.check),
-                    label: const Text('Confirmar Foto'),
-                    style: FilledButton.styleFrom(backgroundColor: _brightBlue),
-                  ),
-                  const SizedBox(height: 12),
-                  OutlinedButton.icon(
-                    onPressed: _retakePhoto,
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Tirar Outra'),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: Row(
+              children: [
+                // Botão de Refazer Foto
+                GestureDetector(
+                  onTap: _retakePhoto,
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withAlpha(150),
+                      shape: BoxShape.circle,
                     ),
+                    child: const Icon(Icons.refresh, color: Colors.white, size: 20),
                   ),
-                ],
-              ),
-            ),
-          if (_isPhotoConfirmed)
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.check, color: Colors.white, size: 20),
-              ),
-            )
+                const SizedBox(width: 8),
+                // Indicador visual de Concluído
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: const BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 20),
+                ),
+              ],
+            ),
+          )
         ],
       );
     }
