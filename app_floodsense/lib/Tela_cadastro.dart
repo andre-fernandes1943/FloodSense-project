@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Tela_ocorrencia.dart';
 
-// CORES DO FLOODSENSE
 const azulEscuro = Color(0xFF064A98);
 const azulMedio = Color(0xFF159FE0);
 const azulClaro = Color(0xFFE8F7FF);
@@ -16,9 +15,12 @@ class TelaCadastro extends StatefulWidget {
 }
 
 class _TelaCadastroState extends State<TelaCadastro> {
+  // deixa a senha escondida ou não.
   bool ocultarSenha = true;
   bool ocultarConfirmacao = true;
+  bool _carregando = false;
 
+  // é isso aqui que vai pegar os dados digitados e mandar para o backend.
   final nomeController = TextEditingController();
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
@@ -31,6 +33,82 @@ class _TelaCadastroState extends State<TelaCadastro> {
     senhaController.dispose();
     confirmarSenhaController.dispose();
     super.dispose();
+  }
+  // Validador do cadastro.
+  Future<void> _realizarCadastro() async {
+    // 1. Extração dos dados.
+    final nome = nomeController.text.trim();
+    final email = emailController.text.trim();
+    final senha = senhaController.text;
+    final confirmarSenha = confirmarSenhaController.text;
+
+    // 2. Validação simples no próprio App.
+    if (nome.isEmpty || email.isEmpty || senha.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, preencha todos os campos.')),
+      );
+      return;
+    }
+
+    if (senha != confirmarSenha) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('As senhas não coincidem.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _carregando = true;
+    });
+
+    try {
+      // (Obs: André) É aqui que voce faz a requisição para o backend Webert!
+      // é nesse local que voce tem que colocar as resquisições e envios de dados
+      // código logo a baixo.
+      // =====================================================================
+      
+      // Exemplo do que você deve fazer aqui usando o Supabase:
+      // final AuthResponse res = await Supabase.instance.client.auth.signUp(
+      //   email: email,
+      //   password: senha,
+      //   data: {'nome_completo': nome}, // Enviando o nome para os metadados do usuário
+      // );
+      
+      await Future.delayed(const Duration(seconds: 2)); // Não esqueça de tirar qaundo conectar o Supabase.
+
+      // Se o cadastro for bem-sucedido, mostramos a mensagem e vamos para a tela inicial
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cadastro realizado com sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TelaOcorrencia(),
+          ),
+        );
+      }
+    } catch (erro) {
+      // Se ocorrer um erro no cadastro (ex: email já existe), mostramos o erro
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao cadastrar: $erro'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _carregando = false;
+        });
+      }
+    }
   }
 
   @override
@@ -55,13 +133,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
             child: Column(
               children: [
                 const SizedBox(height: 24),
-
-                // LOGO
                 const FloodSenseLogo(),
-
                 const SizedBox(height: 10),
-
-                // TÍTULO
                 const Text(
                   'Crie sua conta',
                   textAlign: TextAlign.center,
@@ -71,9 +144,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-
                 const SizedBox(height: 4),
-
                 const Text(
                   'Cadastre-se para começar\na usar o FloodSense.',
                   textAlign: TextAlign.center,
@@ -83,9 +154,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     height: 1.25,
                   ),
                 ),
-
                 const SizedBox(height: 26),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Column(
@@ -95,18 +164,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         hint: 'Nome completo',
                         icon: Icons.person_outline,
                       ),
-
                       const SizedBox(height: 12),
-
                       CampoCadastro(
                         controller: emailController,
                         hint: 'E-mail',
                         icon: Icons.mail_outline,
                         keyboardType: TextInputType.emailAddress,
                       ),
-
                       const SizedBox(height: 12),
-
                       CampoCadastro(
                         controller: senhaController,
                         hint: 'Senha',
@@ -126,9 +191,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 12),
-
                       CampoCadastro(
                         controller: confirmarSenhaController,
                         hint: 'Confirmar senha',
@@ -137,8 +200,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
-                              ocultarConfirmacao =
-                                  !ocultarConfirmacao;
+                              ocultarConfirmacao = !ocultarConfirmacao;
                             });
                           },
                           icon: Icon(
@@ -149,23 +211,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 22),
-
-                      // BOTÃO CRIAR CADASTRO
+                      
+                      // Botão de realizar cadastro
                       SizedBox(
                         width: double.infinity,
                         height: 62,
                         child: ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Cadastro realizado com sucesso!',
-                                ),
-                              ),
-                            );
-                          },
+                          onPressed: _carregando ? null : _realizarCadastro,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: laranja,
                             foregroundColor: Colors.white,
@@ -174,29 +227,32 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Criar cadastro',
-                                style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.bold,
+                          child: _carregando 
+                              ? const SizedBox(
+                                  height: 28, 
+                                  width: 28, 
+                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
+                                )
+                              : const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Criar cadastro',
+                                      style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(width: 18),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      size: 28,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(width: 18),
-                              Icon(
-                                Icons.arrow_forward,
-                                size: 28,
-                              ),
-                            ],
-                          ),
                         ),
                       ),
-
                       const SizedBox(height: 18),
-
-                      // JÁ POSSUI CONTA
                       const Row(
                         children: [
                           Expanded(
@@ -221,21 +277,15 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 14),
-
-                      // BOTÃO ENTRAR
+                      
+                      // Aqui é o botão "Entrar" ele faz voltar para a tela de login.
                       SizedBox(
                         width: double.infinity,
                         height: 58,
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const TelaOcorrencia(),
-                              ),
-                            );
+                            Navigator.pop(context); 
                           },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: azulEscuro,
@@ -259,10 +309,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 35),
-
-                // PARTE INFERIOR DECORATIVA
                 const FundoCidade(),
               ],
             ),
@@ -273,7 +320,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
   }
 }
 
-// CAMPOS
+// ==========================================
+// WIDGET: CAMPO DE TEXTO PADRONIZADO
+// ==========================================
 class CampoCadastro extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
@@ -338,7 +387,7 @@ class CampoCadastro extends StatelessWidget {
   }
 }
 
-// LOGO OFICIAL DO FLOODSENSE
+// Img da logo no topo da tela.
 class FloodSenseLogo extends StatelessWidget {
   const FloodSenseLogo({super.key});
 
@@ -352,9 +401,7 @@ class FloodSenseLogo extends StatelessWidget {
           height: 118,
           fit: BoxFit.contain,
         ),
-
         const SizedBox(height: 10),
-
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -376,7 +423,6 @@ class FloodSenseLogo extends StatelessWidget {
             ),
           ],
         ),
-
         const Text(
           'Tecnologia para prevenir\ne proteger vidas.',
           textAlign: TextAlign.center,
@@ -392,7 +438,7 @@ class FloodSenseLogo extends StatelessWidget {
   }
 }
 
-// DECORAÇÃO INFERIOR
+// decoração de fundo com os predio.
 class FundoCidade extends StatelessWidget {
   const FundoCidade({super.key});
 
@@ -423,7 +469,7 @@ class FundoCidade extends StatelessWidget {
             top: 45,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: const [
                 Predio(28, 55),
                 Predio(35, 85),
                 Predio(25, 65),
@@ -432,13 +478,12 @@ class FundoCidade extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             right: 20,
             top: 55,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: const [
                 Predio(25, 60),
                 Predio(40, 100),
                 Predio(30, 72),
@@ -446,7 +491,6 @@ class FundoCidade extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             left: 35,
             bottom: 26,
@@ -474,7 +518,6 @@ class FundoCidade extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             right: -20,
             bottom: -20,

@@ -1,17 +1,92 @@
 import 'package:flutter/material.dart';
-
 import 'Tela_cadastro.dart';
 import 'Tela_ocorrencia.dart';
 
-// Cores
 const corAzulEscuro = Color(0xFF0A4B8C);
 const corAzulMedio = Color(0xFF2576D7);
 const corAzulClaro = Color.fromARGB(255, 84, 162, 231);
 const corLaranja = Color(0xFFFF7A20);
 const corFundo = Color(0xFFF0F7FF);
 
-class LoginPage extends StatelessWidget {
+// Tela de login do App(Substitui o StatelessWidget pelo StatefulWidget para o Aplicativo realmente começar a funcionar(obs: André))
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  // Controladores para capturar exatamente o que o usuário digitar nos campos
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+
+  // Permite que o usuário esconda ou não a senha que tá digitando.
+  bool _ocultarSenha = true; 
+  bool _carregando = false;  
+
+  // Limpa o cache/memoria que estava sendo usada quando fechar o App
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _senhaController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fazerLogin() async {
+    final email = _emailController.text.trim();
+    final senha = _senhaController.text;
+
+    if (email.isEmpty || senha.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, preencha o e-mail e a senha.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _carregando = true;
+    });
+
+    try {
+      // (Obs: André) Aqui é o local onde você tem que colocar as requisições e envios de dados para o Supabase Webert.
+      
+      // Exemplo do que você pode fazer aqui:
+      // final resposta = await Supabase.instance.client.auth.signInWithPassword(
+      //   email: email,
+      //   password: senha,
+      // );
+      
+      // Simulando o tempo de resposta do servidor 
+      await Future.delayed(const Duration(seconds: 2)); // <--- (REMOVA ISSO QUANDO conectar O SUPABASE)
+
+      // Se o login der certo, a execução continua aqui e enviamos para a tela de ocorrência
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TelaOcorrencia(),
+          ),
+        );
+      }
+    } catch (erro) {
+      // Se o login falhar (senha errada e tudo mais), cai neste bloco de baixo.
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('E-mail ou senha incorretos. Tente novamente.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _carregando = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +107,15 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-
-                // Logo
-                // Logo
+                // Logo do App
                 Container(
                   decoration: BoxDecoration(
-                    shape: BoxShape.rectangle, // Mantém o efeito arredondado atrás do escudo
+                    shape: BoxShape.rectangle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.2), // Cor branca com transparência suave
-                        blurRadius: 50.0, // Define o quão esfumaçado/suave será o contorno
-                        spreadRadius: 1.0, // Define a expansão do contorno além da imagem
+                        color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2), // Cor branca com transparência suave
+                        blurRadius: 50.0,
+                        spreadRadius: 1.0, 
                       ),
                     ],
                   ),
@@ -55,8 +128,6 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 16),
-
-                // Nome FloodSense no topo da tela de cadastro
                 const Text(
                   'FloodSense',
                   style: TextStyle(
@@ -68,7 +139,6 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 8),
-
                 const Text(
                   'Tecnologia para prevenir\ne proteger vidas.',
                   textAlign: TextAlign.center,
@@ -81,8 +151,6 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 40),
-
-                // Bem-vindo
                 const Text(
                   'Bem-vindo(a)!',
                   style: TextStyle(
@@ -107,8 +175,10 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 32),
 
-                // Campo E-mail
+                // Email
                 TextField(
+                  controller: _emailController, // Conectado para capturar o texto
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'E-mail',
                     prefixIcon: const Icon(
@@ -126,13 +196,14 @@ class LoginPage extends StatelessWidget {
                       borderSide: const BorderSide(color: corAzulClaro),
                     ),
                   ),
-                  keyboardType: TextInputType.emailAddress,
                 ),
 
                 const SizedBox(height: 16),
 
-                // Campo Senha
+                // campo da senha
                 TextField(
+                  controller: _senhaController, // Conectado para capturar o texto
+                  obscureText: _ocultarSenha,   // Esconde a senha conforme o estado da variável
                   decoration: InputDecoration(
                     hintText: 'Senha',
                     prefixIcon: const Icon(
@@ -140,11 +211,17 @@ class LoginPage extends StatelessWidget {
                       color: corAzulMedio,
                     ),
                     suffixIcon: IconButton(
-                      icon: const Icon(
-                        Icons.visibility_outlined,
+                      // Muda o ícone dependendo se a senha está oculta ou não
+                      icon: Icon(
+                        _ocultarSenha ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                         color: corAzulMedio,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Inverte o estado da variável para mostrar/esconder a senha
+                        setState(() {
+                          _ocultarSenha = !_ocultarSenha;
+                        });
+                      },
                     ),
                     filled: true,
                     fillColor: Colors.white,
@@ -157,12 +234,11 @@ class LoginPage extends StatelessWidget {
                       borderSide: const BorderSide(color: corAzulClaro),
                     ),
                   ),
-                  obscureText: true,
                 ),
 
                 const SizedBox(height: 8),
 
-                // Esqueci minha senha
+                // Botão "Esqueci asenha" (Não vamos adicionar essa feature agora, mas deixei para caso a gente faça isso futuramente)
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -179,8 +255,7 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 8),
-
-                // Botão Entrar
+                // botão para ir para a tela inicial.
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -192,37 +267,39 @@ class LoginPage extends StatelessWidget {
                       ),
                       elevation: 5,
                     ),
-                    onPressed: () {
-                      // Acesso provisório do protótipo, sem autenticação.
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TelaOcorrencia(),
-                        ),
-                      );
-                    },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Entrar',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
+                    // Se estiver carregando, desativa o botão, senão chama a função de login
+                    onPressed: _carregando ? null : _fazerLogin,
+                    // Mostra o "loading" se estiver conectando, ou os textos normais se não estiver
+                    child: _carregando
+                        ? const SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                          )
+                        : const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Entrar',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(Icons.arrow_forward, color: Colors.white),
+                            ],
                           ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: Colors.white),
-                      ],
-                    ),
                   ),
                 ),
 
                 const SizedBox(height: 32),
 
-                // Divisor
+                // ==========================================
+                // DIVISOR E RODAPÉ
+                // ==========================================
                 const Row(
                   children: [
                     Expanded(child: Divider(color: corAzulClaro)),
