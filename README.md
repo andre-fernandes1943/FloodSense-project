@@ -1,113 +1,168 @@
-# FloodSense API — Análise visual de ocorrências urbanas
+<p align="left">
+  <img src="assets/FLOODSENSE_Logo2.1.png " width="350">
+</p>
 
-API em Node.js/Express que recebe uma imagem e utiliza a API Gemini para produzir uma classificação visual em JSON.
 
-## Requisitos
+---
+### FloodSense 2.0
+FloodSense 2.0 é a expansão do projeto inicial, voltada ao aprimoramento do monitoramento e da prevenção de enchentes por meio da integração de novas tecnologias, como aplicativo mobile e inteligência artificial aplicada a análise de dados.
 
-- Node.js LTS instalado
-- Uma chave da Gemini API: https://aistudio.google.com/apikey
-- Conexão com a internet para consultar a IA
+Nessa nova versão, o projeto será desenvolvido como um **aplicativo mobile utilizando Dart e Flutter**, permitindo que os usuários registre situações relacionadas a alagamentos, enchentes e possíveis riscos ambientais por meio de fotos tiradas dentro do aplicativo.
 
-## Configuração
+O aplicativo contará com **inteligência artificial** para análisar as imagens das ocorrências e determinar se a situação identificada é relevante o suficiente para ser encaminhada as autoridades locais responsáveis, tornando a IA parte central da solução.
 
-1. Extraia a pasta `FloodSense-API`.
-2. Dentro dela, copie `.env.example` para um arquivo chamado `.env`.
-3. Abra `.env` e substitua `COLOQUE_SUA_CHAVE_AQUI` pela sua chave real.
-4. Abra o terminal dentro da pasta e execute:
+O projeto tem como objetivo contribuir para prevenção de **desastres naturais causados por enchentes**, permitindo o monitoramento do nível da água em áreas de risco e auxiliando na tomada de decisões para **proteção da população**.
 
-```bash
-npm install
-npm start
-```
+##
+### Aplicação da ODS 13 dentro do projeto FloodSense
+A ODS 13 — Ação Contra a Mudança Global do Clima será aplicada à FloodSense por meio do desenvolvimento de soluções voltadas à prevenção e redução dos impactos causados por enchentes. A empresa utilizará tecnologia e inteligência artificial para monitorar riscos, analisar dados climáticos e emitir alertas antecipados à população, permitindo que as pessoas tenham mais tempo para se preparar e buscar locais seguros.
 
-O servidor deve mostrar `FloodSense API disponível na porta 3000`.
+Dessa forma, a FloodSense contribui para a adaptação das cidades aos efeitos das mudanças climáticas, ajudando a reduzir danos materiais, riscos à população e impactos sociais causados por eventos climáticos extremos. A iniciativa também busca conscientizar a sociedade sobre a importância da prevenção e da preparação diante das mudanças no clima.
 
-## Teste de status
+##
+### Motivação do Projeto
+Enchentes são um dos desastres naturais mais recorrentes no Brasil, causando prejuízos materiais, **riscos à vida** e impactos sociais significativos.
+Em muitos casos, a falta de alertas antecipados difilculta a resposta rápida das autoridades e da população.
 
-Abra no navegador:
+##
+---
 
-`http://localhost:3000/`
+### FloodSense 1.0
+A primeira versão do FloodSense propõe o desenvolvimento de um sistema de monitoramento de enchentes baseado em tecnologias da Internet das Coisas (IoT) integrado a uma plataforma web para visualização e análise  de dados em tempo real.
 
-Resposta esperada:
+##
+### Plataforma Web
+A plataforma web do FloodSense é responsável por apresentar os dados coletados pelo dispositivo IoT.
 
-```json
-{
-  "projeto": "FloodSense",
-  "status": "online",
-  "versao": "1.0.0",
-  "endpoints": {
-    "status": "GET /",
-    "analisarImagem": "POST /api/analisar"
-  }
-}
-```
+Usuários cadastrados no site poderão acessar informações registradas pelos sensores, incluindo medições do nível da água, histórico de dados e possiveis alertas relacionados a riscos de enchentes.
 
-## Teste de análise de imagem
+além disso, a plataforma poderá integrar dados de APIs públicas, permitindo complementar as informações do sensor com indicadores locais, regionais, ambientais e meteorológicos.
 
-Use Postman, Insomnia ou outro cliente HTTP.
+##
+### Funcionamento do Sistema
+O sistema FloodSense funciona a partir da integração entre o dispositivo IoT e a plataforma web.
 
-- Método: `POST`
-- URL: `http://localhost:3000/api/analisar`
-- Body: `form-data`
-- Campo: `imagem`
-- Tipo do campo: `File`
-- Valor: selecione uma imagem JPG, PNG ou WEBP de até 5 MB.
+**Ordem de Funcionamento:**
 
-Alternativamente, com `curl` e uma imagem chamada `foto.jpg` no diretório atual:
+Sensor IoT → coleta dados do nível de água.
 
-```bash
-curl -X POST -F "imagem=@foto.jpg" http://localhost:3000/api/analisar
-```
+Sistema → registra as medições.
 
-## Exemplo de resposta
+Plataforma web → exibe os dados.
 
-Os valores são ilustrativos; o resultado real depende da imagem analisada.
+Usuários e Autoridades → acompanham informações e tomada de decisão.
 
-```json
-{
-  "sucesso": true,
-  "projeto": "FloodSense",
-  "analise": {
-    "categoria": "buraco",
-    "descricao": "Depressão visível no pavimento.",
-    "confianca": 88,
-    "imagem_adequada": true,
-    "evidencias_visuais": ["Pavimento irregular"],
-    "revisao_humana": true
-  },
-  "status_denuncia": "apta_para_revisao",
-  "exige_revisao_humana": true,
-  "mensagem": "Há indícios visuais. Revise antes de registrar a ocorrência."
-}
-```
+##
+# Tecnologias Utilizadas
 
-## Categorias
+<table align="center">
+  <tr>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="65" height="65" />
+      <br>JavaScript
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/cpp-icon.svg" alt="icon" width="65" height="65" />
+      <br>C++
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="65" height="65" />
+      <br>Github
+    </td>
+    <td align="center" width="96"> 
+        <img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" width="60" height="60" alt="Git" />
+      <br>Git
+    </td>
+    <td align="center"  width="96">
+        <img src="https://skillicons.dev/icons?i=html" width="48" height="48" alt="HTML5" />
+      <br>HTML5
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=css" width="48" height="48" alt="css" />
+      <br>CSS3
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=vscode" width="48" height="48" alt="VsCode" />
+      <br>VsCode
+    </td>
+     <td align="center" width="96">
+        <img src="https://inside.wooster.edu/technology/wp-content/uploads/sites/83/2018/09/logo-tinkercad-256.png" width="48" height="48" alt="Tinkercad" />
+      <br>Tinkercad
+    </td>
+    </td>
+ </tr>
+</table>
 
-- `buraco`
-- `entulho`
-- `poste apagado`
-- `alagamento`
-- `outro problema urbano`
-- `nenhum problema identificável`
-- `inconclusivo`
 
-## Endpoints
+##
+### Equipe e Contexto do projeto
+Este projeto foi desenvolvido como parte das atividades acadêmicas do curso de Tecnologia em Análise de Desenvolvimento de Sistemas da UNINOVE.
 
-| Método | Rota | Descrição |
-|---|---|---|
-| GET | `/` | Verifica se a API está online |
-| POST | `/api/analisar` | Recebe a foto no campo `imagem` e devolve a análise |
+O objetivo é aplicar, de forma prática, conhecimentos adiquiridos em diferentes disciplinas do curso, integrando conceitos de Front-End, Backend, Internet das coisas(IOT), Gestão, Arquitetura de Software e Regras de Negócio.
 
-## Segurança e limites
 
-- A chave Gemini fica no servidor, dentro do `.env`; não a coloque no HTML, CSS ou JavaScript público.
-- O `.gitignore` exclui `.env` e `node_modules`.
-- O upload limita arquivos a 5 MB e aceita somente JPG, PNG e WEBP.
-- Esta versão é um protótipo. Antes de publicar na internet, implemente autenticação, limite de requisições, monitoramento e política de privacidade.
-- A análise visual não prova que uma denúncia é verdadeira, não confirma endereço e não substitui revisão humana.
-- O endpoint ainda não salva nem envia denúncias para um banco de dados.
+**Membros da equipe:**
 
-## Documentação
 
-- Gemini API — compreensão de imagens: https://ai.google.dev/gemini-api/docs/image-understanding
-- Gemini API — geração de conteúdo: https://ai.google.dev/api/generate-content
+<table >
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/263064410?v=4" width="180px" height="180px"/><br>
+      <b>André Fernandes</b><br>
+      <a href="https://github.com/andre-fernandes1943">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/316414427?v=4" width="180px" height="180px"/><br>
+      <b>Nicoli Tigre</b><br>
+      <a href="https://github.com/nicolitigre-maker">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/264300136?v=4" width="180px" height="180px"/><br>
+      <b>ricardosr-wq</b><br>
+      <a href="https://github.com/ricardosr-wq">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/261529615?v=4" width="180px" height="180px"/><br>
+      <b>jessica Branco</b><br>
+      <a href="https://github.com/jessicabranco">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/269077334?v=4" width="180px" height="180px"/><br>
+      <b>Murilo Legario</b><br>
+      <a href="https://github.com/MuriloolegarioDev">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/262629857?v=4" width="180px" height="180px"/><br>
+      <b>Thiago de Melo</b><br>
+      <a href="https://github.com/ThiagoMF-26">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/217836742?v=4" width="180px" height="180px"/><br>
+      <b>Tiago Egea</b><br>
+      <a href="https://github.com/Tiagoegea1">Perfil do GitHub</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/98666771?v=4" width="100px" height="100px"/><br>
+      <b>Webert Moreira</b><br>
+      <a href="https://github.com/WebertMDM">Perfil do GitHub</a>
+    </td>
+  </tr>
+</table>
+
+
+##
+### Instituição
+Centro Universitario Nove de Julho - UNINOVE
+
+Curso:  Tecnologia em Análise de Desenvolvimento de Sistemas.
+
+Ano: 2026.
+
+##
+### LIcença
+Este projeto possui caráter acadêmico e educacional.
+
+
+
+
+
