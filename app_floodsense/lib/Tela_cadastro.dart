@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Tela_ocorrencia.dart';
 
 const azulEscuro = Color(0xFF064A98);
@@ -15,12 +16,10 @@ class TelaCadastro extends StatefulWidget {
 }
 
 class _TelaCadastroState extends State<TelaCadastro> {
-  // deixa a senha escondida ou não.
   bool ocultarSenha = true;
   bool ocultarConfirmacao = true;
   bool _carregando = false;
 
-  // é isso aqui que vai pegar os dados digitados e mandar para o backend.
   final nomeController = TextEditingController();
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
@@ -34,15 +33,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
     confirmarSenhaController.dispose();
     super.dispose();
   }
-  // Validador do cadastro.
+
   Future<void> _realizarCadastro() async {
-    // 1. Extração dos dados.
     final nome = nomeController.text.trim();
     final email = emailController.text.trim();
     final senha = senhaController.text;
     final confirmarSenha = confirmarSenhaController.text;
 
-    // 2. Validação simples no próprio App.
     if (nome.isEmpty || email.isEmpty || senha.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, preencha todos os campos.')),
@@ -62,21 +59,21 @@ class _TelaCadastroState extends State<TelaCadastro> {
     });
 
     try {
-      // (Obs: André) É aqui que voce faz a requisição para o backend Webert!
-      // é nesse local que voce tem que colocar as resquisições e envios de dados
-      // código logo a baixo.
-      // =====================================================================
-      
-      // Exemplo do que você deve fazer aqui usando o Supabase:
-      // final AuthResponse res = await Supabase.instance.client.auth.signUp(
-      //   email: email,
-      //   password: senha,
-      //   data: {'nome_completo': nome}, // Enviando o nome para os metadados do usuário
-      // );
-      
-      await Future.delayed(const Duration(seconds: 2)); // Não esqueça de tirar qaundo conectar o Supabase.
+      // 1. Cria a conta de autenticação no Supabase Auth
+      final AuthResponse res = await Supabase.instance.client.auth.signUp(
+        email: email,
+        password: senha,
+      );
 
-      // Se o cadastro for bem-sucedido, mostramos a mensagem e vamos para a tela inicial
+      // 2. Insere as informações do perfil na tabela public.usuario
+      if (res.user != null) {
+        await Supabase.instance.client.from('usuario').insert({
+          'id_usuario': res.user!.id,
+          'nome': nome,
+          'email': email,
+        });
+      }
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -92,8 +89,16 @@ class _TelaCadastroState extends State<TelaCadastro> {
           ),
         );
       }
+    } on AuthException catch (erro) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(erro.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } catch (erro) {
-      // Se ocorrer um erro no cadastro (ex: email já existe), mostramos o erro
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -213,7 +218,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       const SizedBox(height: 22),
                       
-                      // Botão de realizar cadastro
                       SizedBox(
                         width: double.infinity,
                         height: 62,
@@ -231,7 +235,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               ? const SizedBox(
                                   height: 28, 
                                   width: 28, 
-                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
+                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
                                 )
                               : const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -279,7 +283,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       const SizedBox(height: 14),
                       
-                      // Aqui é o botão "Entrar" ele faz voltar para a tela de login.
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -320,9 +323,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
   }
 }
 
-// ==========================================
-// WIDGET: CAMPO DE TEXTO PADRONIZADO
-// ==========================================
 class CampoCadastro extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
@@ -387,7 +387,6 @@ class CampoCadastro extends StatelessWidget {
   }
 }
 
-// Img da logo no topo da tela.
 class FloodSenseLogo extends StatelessWidget {
   const FloodSenseLogo({super.key});
 
@@ -438,7 +437,6 @@ class FloodSenseLogo extends StatelessWidget {
   }
 }
 
-// decoração de fundo com os predio.
 class FundoCidade extends StatelessWidget {
   const FundoCidade({super.key});
 

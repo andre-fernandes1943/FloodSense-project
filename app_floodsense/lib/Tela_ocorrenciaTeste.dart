@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io'; 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; 
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 const _blue = Color(0xFF0754A5);
 const _brightBlue = Color(0xFF168EE5);
@@ -48,14 +49,11 @@ class OccurrenceFormPage extends StatefulWidget {
 }
 
 class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
-  // Chave global do formulário para validação de campos
   final _formKey = GlobalKey<FormState>();
 
-  // Controladores de texto dos campos de formulário
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
   
-  // Data e hora ajustadas para o fuso horário de Brasília (UTC-3)
   DateTime _occurredAt = DateTime.now().toUtc().subtract(const Duration(hours: 3));
 
   final ImagePicker _picker = ImagePicker();
@@ -70,12 +68,10 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     super.dispose();
   }
 
-  // Formatadores de data e hora
   String get _date => '${_two(_occurredAt.day)}/${_two(_occurredAt.month)}/${_occurredAt.year}';
   String get _time => '${_two(_occurredAt.hour)}:${_two(_occurredAt.minute)}';
   String _two(int value) => value.toString().padLeft(2, '0');
 
-  // Selecionar Data na tela
   Future<void> _pickDate() async {
     final value = await showDatePicker(
       context: context,
@@ -92,7 +88,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // Selecionar Hora na tela
   Future<void> _pickTime() async {
     final value = await showTimePicker(
       context: context,
@@ -107,7 +102,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // Abrir a Câmera Nativa do Dispositivo
   Future<void> _takePhoto() async {
     try {
       final XFile? photo = await _picker.pickImage(
@@ -125,7 +119,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     }
   }
 
-  // caso não queira usar a foto que tirou
   void _retakePhoto() {
     setState(() {
       _capturedImage = null;
@@ -133,7 +126,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     _takePhoto(); 
   }
 
-  // Simulação da busca de localização via GPS
   Future<void> _getCurrentLocation() async {
     setState(() {
       _locationController.text = "Buscando localização atual...";
@@ -145,12 +137,12 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // FUNÇÃO DE ENVIO DA OCORRÊNCIA E ANÁLISE IA
+  // =========================================================================
+  // FUNÇÃO DE ENVIO DA OCORRÊNCIA COM SUPABASE E RESERVA PARA GEMINI IA
+  // =========================================================================
   Future<void> _prepareSubmission() async {
-    // 1. Validação dos campos de texto (descrição e localização)
     if (!_formKey.currentState!.validate()) return;
     
-    // 2. Validação da imagem da ocorrência
     if (_capturedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -161,31 +153,32 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
       return;
     }
 
-    // Ativa o estado de carregamento para desabilitar botões e mostrar a animação
     setState(() {
       _carregando = true;
     });
 
-    try {     
-      // Webert é nesse local que voce tem que colocar as resquisições e envios de dados
-      //  o seu código lbem aqui.
-      // =====================================================================
+    try {
+      final usuarioAtual = Supabase.instance.client.auth.currentUser;
+      if (usuarioAtual == null) throw 'Usuário não autenticado.';
 
-      // Dados coletados na tela para o envio:
-      // - Caminho da Foto: _capturedImage!.path
-      // - Descrição: _descriptionController.text.trim()
-      // - Localização: _locationController.text.trim()
-      // - Data/Hora: _occurredAt.toIso8601String()
+      // 1. CONVERTE A IMAGEM EM BASE64 PARA ENVIAR À IA
+      final bytes = await File(_capturedImage!.path).readAsBytes();
+      final base64Image = base64Encode(bytes);
 
-      // Simulação do tempo de resposta da API / IA (REMOVA O DELAY ABAIXO QUANDO CONECTAR)
-      await Future.delayed(const Duration(seconds: 3)); //  <---  remover essa linha aqui
+      // 2. CHAMA A EDGE FUNCTION NO SUPABASE (GEMINI)
+      final FunctionResponse res = await Supabase.instance.client.functions.invoke(
+        'analisar-imagem',
+        body: {
+          'base64': base64Image,
+          'mimeType': 'image/jpeg',
+        },
+      );
 
-      // ALTERE A VARIÁVEL ABAIXO PARA 'false' PARA TESTAR O CASO DE FOTO REJEITADA:
-      bool fotoAprovadaPelaIA = false; 
+      final Map<String, dynamic> resultadoIA = res.data as Map<String, dynamic>;
+      bool fotoAprovadaPelaIA = resultadoIA['ehAlagamento'] ?? false;
+      String categoriaIdentificada = resultadoIA['categoria'] ?? 'inconclusivo';
 
-      // -----------------------------------------------------------------
-      // CASO 1: A IA REJEITOU A FOTO (NÃO FOI IDENTIFICADA UMA ENCHENTE)
-      // -----------------------------------------------------------------
+      // 3. SE NÃO FOR ALAGAMENTO, BARRA O REGISTRO
       if (!fotoAprovadaPelaIA) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -198,17 +191,54 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
             ),
           );
 
-          // Apaga a foto da tela para obrigar o usuário a capturar uma nova
           setState(() {
             _capturedImage = null;
           });
         }
-        return; // Cancela o processo de envio
+        return;
       }
 
-      // -----------------------------------------------------------------
-      // CASO 2: A IA CONFIRMOU A FOTO (ENCHENTE IDENTIFICADA COM SUCESSO)
-      // -----------------------------------------------------------------
+      // 4. UPLOAD PARA O STORAGE (BUCKET 'ocorrencias')
+      final arquivoFoto = File(_capturedImage!.path);
+      final nomeArquivo = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final caminhoStorage = '${usuarioAtual.id}/$nomeArquivo';
+
+      await Supabase.instance.client.storage
+          .from('ocorrencias')
+          .upload(caminhoStorage, arquivoFoto);
+
+      final urlPublicaFoto = Supabase.instance.client.storage
+          .from('ocorrencias')
+          .getPublicUrl(caminhoStorage);
+
+      // 5. INSERE A OCORRÊNCIA NA TABELA 'public.ocorrencia'
+      final respostaOcorrencia = await Supabase.instance.client
+          .from('ocorrencia')
+          .insert({
+            'id_usuario': usuarioAtual.id,
+            'descricao': _descriptionController.text.trim(),
+            'latitude': -23.5505,
+            'longitude': -46.6333,
+          })
+          .select()
+          .single();
+
+      final int idOcorrenciaGerado = respostaOcorrencia['id_ocorrencia'];
+
+      // 6. INSERE O LINK DA FOTO NA TABELA 'public.imagem'
+      await Supabase.instance.client.from('imagem').insert({
+        'id_ocorrencia': idOcorrenciaGerado,
+        'caminho_imagem': urlPublicaFoto,
+      });
+
+      // 7. INSERE O RESULTADO DA ANÁLISE NA TABELA 'public.analise_ia'
+      await Supabase.instance.client.from('analise_ia').insert({
+        'id_ocorrencia': idOcorrenciaGerado,
+        'resultado': 'APROVADA',
+        'classificacao': categoriaIdentificada,
+        'nivel_confianca': 90,
+      });
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -218,7 +248,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
           ),
         );
 
-        // Limpa o formulário após o envio
         _descriptionController.clear();
         _locationController.clear();
         setState(() {
@@ -227,17 +256,15 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
       }
 
     } catch (erro) {
-      // Tratamento para eventuais erros de conexão
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Não foi possível enviar a ocorrência. Tente novamente ($erro).'),
+            content: Text('Falha ao registrar ocorrência: $erro'),
             backgroundColor: Colors.red,
           ),
         );
       }
     } finally {
-      // Desativa a animação de carregamento
       if (mounted) {
         setState(() {
           _carregando = false;
@@ -275,7 +302,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
               children: [
-                // CARD DE CABEÇALHO DA TELA
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
@@ -309,7 +335,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                 ),
                 const SizedBox(height: 18),
 
-                // FORMULÁRIO DE DADOS
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
@@ -322,7 +347,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                       _sectionLabel('Foto da ocorrência'),
                       const SizedBox(height: 8),
                       
-                      // AREA DA CÂMERA (Proporção 9:16)
                       Center(
                         child: SizedBox(
                           height: 380, 
@@ -392,7 +416,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
                       
                       const SizedBox(height: 20),
 
-                      // BOTÃO PRINCIPAL DE ENVIO (Com efeito visual de análise)
                       SizedBox(
                         width: double.infinity,
                         height: 52,
@@ -432,7 +455,6 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     ),
   );
 
-  // Widget visual do quadro da foto
   Widget _buildCameraContent() {
     if (_capturedImage != null) {
       return Stack(
