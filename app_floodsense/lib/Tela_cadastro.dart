@@ -59,20 +59,18 @@ class _TelaCadastroState extends State<TelaCadastro> {
     });
 
     try {
-      // 1. Cria a conta de autenticação no Supabase Auth
-      final AuthResponse res = await Supabase.instance.client.auth.signUp(
+      // 1. Cria a conta no Supabase Auth e repassa o 'nome' nos metadados (data)
+      // A Trigger criada no banco vai ler esse nome e salvar na tabela 'usuario' automaticamente!
+      await Supabase.instance.client.auth.signUp(
         email: email,
         password: senha,
+        data: {
+          'nome': nome,
+        },
       );
 
-      // 2. Insere as informações do perfil na tabela public.usuario
-      if (res.user != null) {
-        await Supabase.instance.client.from('usuario').insert({
-          'id_usuario': res.user!.id,
-          'nome': nome,
-          'email': email,
-        });
-      }
+      // 2. A INSERÇÃO MANUAL FOI REMOVIDA DAQUI.
+      // O Supabase cuida da gravação no banco sem dar o erro RLS 42501.
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

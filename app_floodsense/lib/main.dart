@@ -21,7 +21,7 @@ Future<void> main() async {
 
   // Inicializa a conexão com o servidor do Supabase
   await Supabase.initialize(
-    url: 'https://ntmvcluauovtxvbissku.supabase.co/rest/v1/',      // URl que conecta o app ao banco de dados do Supabase
+    url: 'https://ntmvcluauovtxvbissku.supabase.co',      // URl que conecta o app ao banco de dados do Supabase
     publishableKey: 'sb_publishable_GxRL1O1fCQD0T0q19i0T-w_uzF68kOa', // chave publica de identificação do app no Supabase
   );
 
