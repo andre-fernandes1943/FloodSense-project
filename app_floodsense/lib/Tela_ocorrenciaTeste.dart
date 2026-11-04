@@ -195,7 +195,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
 
       // 2. CHAMA A EDGE FUNCTION NO SUPABASE
       final FunctionResponse res = await Supabase.instance.client.functions.invoke(
-        'analisar-imagem',
+        'analisar-imagem-router',
         body: {
           'base64': base64Image,
           'mimeType': 'image/jpeg',
