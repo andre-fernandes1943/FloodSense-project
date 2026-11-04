@@ -14,31 +14,31 @@ class OccurrenceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'FloodSense',
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: _blue, primary: _blue),
-      scaffoldBackgroundColor: _paleBlue,
-      useMaterial3: true,
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFD7E7F0)),
+        title: 'FloodSense',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: _blue, primary: _blue),
+          scaffoldBackgroundColor: _paleBlue,
+          useMaterial3: true,
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Color(0xFFD7E7F0)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Color(0xFFD7E7F0)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: _blue, width: 1.5),
+            ),
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFD7E7F0)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: _blue, width: 1.5),
-        ),
-      ),
-    ),
-    home: const OccurrenceFormPage(),
-  );
+        home: const OccurrenceFormPage(),
+      );
 }
 
 class OccurrenceFormPage extends StatefulWidget {
@@ -119,6 +119,25 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     }
   }
 
+  // SELECIONAR FOTO DA GALERIA (NOVA FUNCIONALIDADE)
+
+  Future<void> _pickFromGallery() async {
+    try {
+      final XFile? photo = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 85,
+      );
+      
+      if (photo != null) {
+        setState(() {
+          _capturedImage = photo;
+        });
+      }
+    } catch (e) {
+      debugPrint('Erro ao abrir galeria: $e');
+    }
+  }
+
   void _retakePhoto() {
     setState(() {
       _capturedImage = null;
@@ -137,9 +156,7 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
-  // =========================================================================
   // FUNÇÃO DE ENVIO DA OCORRÊNCIA COM SUPABASE E RESERVA PARA GEMINI IA
-  // =========================================================================
   Future<void> _prepareSubmission() async {
     if (!_formKey.currentState!.validate()) return;
     
@@ -257,10 +274,22 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
 
     } catch (erro) {
       if (mounted) {
+        final erroString = erro.toString();
+        String mensagemAmigavel = 'Ocorreu um erro ao registrar a ocorrência. Por favor, tente enviar novamente em alguns segundos.';
+
+        // Trata erro de instabilidade ou sobrecarga na API da IA (503 / 502 / Bad Gateway / high demand)
+        if (erroString.contains('503') || 
+            erroString.contains('502') || 
+            erroString.contains('high demand') || 
+            erroString.contains('Bad Gateway')) {
+          mensagemAmigavel = 'O serviço de análise está temporariamente indisponível por alta demanda. Por favor, tente enviar novamente em alguns segundos.';
+        }
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Falha ao registrar ocorrência: $erro'),
-            backgroundColor: Colors.red,
+            content: Text(mensagemAmigavel),
+            backgroundColor: const Color.fromARGB(255, 102, 7, 0),
+            duration: const Duration(seconds: 5),
           ),
         );
       }
@@ -494,21 +523,40 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     }
     
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.add_a_photo_outlined, size: 48, color: Colors.white70),
-          const SizedBox(height: 16),
-          FilledButton.icon(
-            onPressed: _takePhoto,
-            icon: const Icon(Icons.camera_alt),
-            label: const Text('Tirar foto do alagamento'),
-            style: FilledButton.styleFrom(
-              backgroundColor: _orange,
-              foregroundColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.add_a_photo_outlined, size: 44, color: Colors.white70),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.center,
+              children: [
+                FilledButton.icon(
+                  onPressed: _takePhoto,
+                  icon: const Icon(Icons.camera_alt, size: 18),
+                  label: const Text('Câmera'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: _orange,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+                FilledButton.icon(
+                  onPressed: _pickFromGallery,
+                  icon: const Icon(Icons.photo_library, size: 18),
+                  label: const Text('Galeria'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: _brightBlue,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
