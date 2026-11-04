@@ -102,11 +102,17 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
+  // =========================================================================
+  // TIRAR FOTO COM CÂMERA (COM COMPRESSÃO E LIMITE DE DIMENSÃO)
+  // =========================================================================
   Future<void> _takePhoto() async {
     try {
       final XFile? photo = await _picker.pickImage(
         source: ImageSource.camera,
         preferredCameraDevice: CameraDevice.rear,
+        maxWidth: 1024,   // <--- REDUZ A LARGURA PARA EVITAR PAYLOAD PESADO
+        maxHeight: 1024,  // <--- REDUZ A ALTURA
+        imageQuality: 70, // <--- COMPRIME A IMAGEM
       );
       
       if (photo != null) {
@@ -119,13 +125,16 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     }
   }
 
-  // SELECIONAR FOTO DA GALERIA (NOVA FUNCIONALIDADE)
-
+  // =========================================================================
+  // SELECIONAR FOTO DA GALERIA (COM COMPRESSÃO)
+  // =========================================================================
   Future<void> _pickFromGallery() async {
     try {
       final XFile? photo = await _picker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 85,
+        maxWidth: 1024,   // <--- REDUZ A LARGURA
+        maxHeight: 1024,  // <--- REDUZ A ALTURA
+        imageQuality: 70, // <--- COMPRIME A IMAGEM
       );
       
       if (photo != null) {
@@ -156,7 +165,9 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     });
   }
 
+  // =========================================================================
   // FUNÇÃO DE ENVIO DA OCORRÊNCIA COM SUPABASE E RESERVA PARA GEMINI IA
+  // =========================================================================
   Future<void> _prepareSubmission() async {
     if (!_formKey.currentState!.validate()) return;
     
@@ -178,11 +189,11 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
       final usuarioAtual = Supabase.instance.client.auth.currentUser;
       if (usuarioAtual == null) throw 'Usuário não autenticado.';
 
-      // 1. CONVERTE A IMAGEM EM BASE64 PARA ENVIAR À IA
+      // 1. CONVERTE A IMAGEM COMPRIMIDA EM BASE64
       final bytes = await File(_capturedImage!.path).readAsBytes();
       final base64Image = base64Encode(bytes);
 
-      // 2. CHAMA A EDGE FUNCTION NO SUPABASE (GEMINI)
+      // 2. CHAMA A EDGE FUNCTION NO SUPABASE
       final FunctionResponse res = await Supabase.instance.client.functions.invoke(
         'analisar-imagem',
         body: {
@@ -191,7 +202,14 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
         },
       );
 
-      final Map<String, dynamic> resultadoIA = res.data as Map<String, dynamic>;
+      // TRATAMENTO SEGURO DO RETORNO DA EDGE FUNCTION
+      Map<String, dynamic> resultadoIA = {};
+      if (res.data is Map<String, dynamic>) {
+        resultadoIA = res.data as Map<String, dynamic>;
+      } else if (res.data is String) {
+        resultadoIA = jsonDecode(res.data as String);
+      }
+
       bool fotoAprovadaPelaIA = resultadoIA['ehAlagamento'] ?? false;
       String categoriaIdentificada = resultadoIA['categoria'] ?? 'inconclusivo';
 
@@ -275,14 +293,13 @@ class _OccurrenceFormPageState extends State<OccurrenceFormPage> {
     } catch (erro) {
       if (mounted) {
         final erroString = erro.toString();
-        String mensagemAmigavel = 'Ocorreu um erro ao registrar a ocorrência. Por favor, tente enviar novamente em alguns segundos.';
+        String mensagemAmigavel = 'Ocorreu um erro ao registrar a ocorrência. Por favor, tente novamente.';
 
-        // Trata erro de instabilidade ou sobrecarga na API da IA (503 / 502 / Bad Gateway / high demand)
         if (erroString.contains('503') || 
             erroString.contains('502') || 
             erroString.contains('high demand') || 
             erroString.contains('Bad Gateway')) {
-          mensagemAmigavel = 'O serviço de análise está temporariamente indisponível por alta demanda. Por favor, tente enviar novamente em alguns segundos.';
+          mensagemAmigavel = 'O serviço de análise está temporariamente indisponível. Por favor, tente enviar novamente em alguns segundos.';
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
